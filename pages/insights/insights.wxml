@@ -1,0 +1,59 @@
+<view class="page">
+  <!-- 今日概览 -->
+  <view class="section-title">今日概览</view>
+  <view class="stat-grid">
+    <view class="stat-card" style="background:#FFF0F0;">
+      <view class="stat-icon">🍼</view>
+      <view class="stat-value">{{stats.feedAmount}}<text class="stat-unit">ml</text></view>
+      <view class="stat-label">喂奶总量</view>
+    </view>
+    <view class="stat-card" style="background:#FFF0F4;">
+      <view class="stat-icon">🤱</view>
+      <view class="stat-value">{{stats.breastMinutes}}<text class="stat-unit">分</text></view>
+      <view class="stat-label">亲喂时长</view>
+    </view>
+    <view class="stat-card" style="background:#F0F4FF;">
+      <view class="stat-icon">😴</view>
+      <view class="stat-value">{{stats.sleepMinutes}}<text class="stat-unit">分</text></view>
+      <view class="stat-label">睡眠时长</view>
+    </view>
+    <view class="stat-card" style="background:#E8FAF8;">
+      <view class="stat-icon">👶</view>
+      <view class="stat-value">{{stats.diaperCount}}<text class="stat-unit">次</text></view>
+      <view class="stat-label">换尿布</view>
+    </view>
+  </view>
+
+  <!-- 次数统计 -->
+  <view class="card">
+    <view class="section-title">今日次数</view>
+    <view class="count-row">
+      <view class="count-item">
+        <text class="count-num">{{stats.feedCount}}</text>
+        <text class="count-label">喂奶</text>
+      </view>
+      <view class="count-item">
+        <text class="count-num">{{stats.breastCount}}</text>
+        <text class="count-label">亲喂</text>
+      </view>
+      <view class="count-item">
+        <text class="count-num">{{stats.medicineCount}}</text>
+        <text class="count-label">补剂</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 近7天睡眠趋势 -->
+  <view class="card">
+    <view class="section-title">近 7 天睡眠趋势</view>
+    <view class="chart">
+      <view class="bar-wrap" wx:for="{{weekBars}}" wx:key="day">
+        <view class="bar" style="height:{{item.height}}%;"></view>
+        <view class="bar-min">{{item.minutes}}</view>
+        <view class="bar-day">{{item.day}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view style="height: 30rpx;"></view>
+</view>

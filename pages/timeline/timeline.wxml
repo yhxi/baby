@@ -1,0 +1,30 @@
+<view class="page">
+  <view wx:if="{{groups.length === 0}}" class="empty">
+    <view class="empty-emoji">📅</view>
+    <view class="empty-text">还没有任何记录</view>
+    <view class="empty-sub">去首页添加第一条记录吧</view>
+  </view>
+
+  <view wx:for="{{groups}}" wx:key="date" class="day-group">
+    <view class="day-header">
+      <view class="day-date">{{item.date}}</view>
+      <view class="day-week">{{item.weekday}}</view>
+    </view>
+
+    <view class="timeline">
+      <view class="tl-item" wx:for="{{item.items}}" wx:for-item="rec" wx:key="id" data-id="{{rec.id}}" bindtap="onItemTap">
+        <view class="tl-time">{{rec.timeText}}</view>
+        <view class="tl-dot" style="background:{{rec.color}};"></view>
+        <view class="tl-card">
+          <view class="tl-icon" style="background:{{rec.color}};">{{rec.icon}}</view>
+          <view class="tl-body">
+            <view class="tl-type">{{rec.typeLabel}}</view>
+            <view class="tl-desc">{{rec.desc}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view style="height: 30rpx;"></view>
+</view>

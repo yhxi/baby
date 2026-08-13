@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/timeline/timeline",
+    "pages/insights/insights",
+    "pages/family/family",
+    "pages/record/record"
+  ],
+  "window": {
+    "navigationBarTitleText": "宝宝养育计划",
+    "navigationBarBackgroundColor": "#FF7B7B",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#FFF8F5",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#FF7B7B",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/timeline/timeline",
+        "text": "时间线"
+      },
+      {
+        "pagePath": "pages/insights/insights",
+        "text": "洞察"
+      },
+      {
+        "pagePath": "pages/family/family",
+        "text": "家庭"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

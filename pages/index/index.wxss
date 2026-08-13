@@ -1,0 +1,219 @@
+.page {
+  min-height: 100vh;
+  padding: 0 0 40rpx;
+}
+
+/* 顶部宝宝信息 */
+.header {
+  background: linear-gradient(135deg, #FF7B7B 0%, #FF9EB5 100%);
+  padding: 40rpx 36rpx 48rpx;
+  display: flex;
+  align-items: center;
+  border-radius: 0 0 40rpx 40rpx;
+}
+
+.avatar {
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 48rpx;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4rpx solid rgba(255, 255, 255, 0.5);
+}
+
+.header-info {
+  flex: 1;
+  margin-left: 28rpx;
+  color: #fff;
+}
+
+.baby-name {
+  font-size: 40rpx;
+  font-weight: 600;
+}
+
+.baby-age {
+  font-size: 30rpx;
+  margin-top: 6rpx;
+  opacity: 0.95;
+}
+
+.baby-days {
+  font-size: 24rpx;
+  margin-top: 4rpx;
+  opacity: 0.85;
+}
+
+.header-badge {
+  font-size: 60rpx;
+}
+
+/* 概览卡片 */
+.overview {
+  display: flex;
+  gap: 24rpx;
+  padding: 0 30rpx;
+  margin-top: -30rpx;
+}
+
+.overview-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 26rpx 28rpx;
+  box-shadow: 0 6rpx 24rpx rgba(255, 123, 123, 0.12);
+}
+
+.overview-label {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.overview-value {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+  margin-top: 12rpx;
+}
+
+.overview-sub {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 6rpx;
+}
+
+.overview-empty {
+  font-size: 30rpx;
+  color: #bbb;
+  margin-top: 12rpx;
+}
+
+/* 快速记录 */
+.quick-card {
+  margin: 28rpx 30rpx 0;
+}
+
+.quick-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  margin-top: 24rpx;
+}
+
+.quick-item {
+  width: calc((100% - 40rpx) / 3);
+  border-radius: 20rpx;
+  padding: 24rpx 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quick-icon {
+  width: 78rpx;
+  height: 78rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  margin-bottom: 14rpx;
+}
+
+.quick-label {
+  font-size: 26rpx;
+  color: #444;
+  font-weight: 500;
+}
+
+/* 今日记录 */
+.record-card {
+  margin: 28rpx 30rpx 0;
+}
+
+.empty-hint {
+  text-align: center;
+  padding: 50rpx 0;
+}
+
+.empty-emoji {
+  font-size: 70rpx;
+}
+
+.empty-text {
+  font-size: 26rpx;
+  color: #aaa;
+  margin-top: 16rpx;
+}
+
+.record-item {
+  display: flex;
+  align-items: center;
+  padding: 22rpx 0;
+  border-bottom: 1rpx solid #f5eeea;
+}
+
+.record-item:last-child {
+  border-bottom: none;
+}
+
+.record-icon {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  margin-right: 22rpx;
+}
+
+.record-body {
+  flex: 1;
+}
+
+.record-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.record-type {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.record-time {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.record-desc {
+  font-size: 26rpx;
+  color: #666;
+  margin-top: 6rpx;
+}
+
+/* 悬浮按钮 */
+.fab {
+  position: fixed;
+  right: 44rpx;
+  bottom: 60rpx;
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF7B7B 0%, #FF9EB5 100%);
+  color: #fff;
+  font-size: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 30rpx rgba(255, 123, 123, 0.45);
+  z-index: 50;
+}

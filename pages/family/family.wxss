@@ -1,0 +1,133 @@
+.page {
+  min-height: 100vh;
+  padding: 30rpx 30rpx;
+}
+
+.section-title {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+  margin: 10rpx 0 20rpx;
+}
+
+.card {
+  margin-bottom: 28rpx;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f5eeea;
+}
+
+.form-row:last-of-type {
+  border-bottom: none;
+}
+
+.form-label {
+  width: 160rpx;
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.form-input {
+  flex: 1;
+  font-size: 30rpx;
+  text-align: right;
+}
+
+.form-value {
+  flex: 1;
+  font-size: 30rpx;
+  text-align: right;
+  color: #333;
+}
+
+.arrow {
+  color: #ccc;
+  margin-left: 8rpx;
+}
+
+.form-static {
+  flex: 1;
+  font-size: 30rpx;
+  text-align: right;
+  color: #999;
+}
+
+.seg {
+  flex: 1;
+  display: flex;
+  gap: 12rpx;
+}
+
+.seg-item {
+  flex: 1;
+  text-align: center;
+  padding: 14rpx 0;
+  border-radius: 14rpx;
+  background: #f7f1ee;
+  color: #666;
+  font-size: 26rpx;
+}
+
+.seg-item.active {
+  background: #FF7B7B;
+  color: #fff;
+}
+
+.btn-save-flat {
+  margin-top: 24rpx;
+  background: linear-gradient(135deg, #FF7B7B 0%, #FF9EB5 100%);
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 50rpx;
+  border: none;
+}
+
+button::after {
+  border: none;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid #f5eeea;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item.danger {
+  color: #FF7B7B;
+}
+
+.about {
+  text-align: center;
+  padding: 60rpx 0 40rpx;
+}
+
+.about-logo {
+  font-size: 80rpx;
+}
+
+.about-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #444;
+  margin-top: 16rpx;
+}
+
+.about-ver {
+  font-size: 24rpx;
+  color: #aaa;
+  margin-top: 8rpx;
+}

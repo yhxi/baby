@@ -1,0 +1,67 @@
+<view class="page">
+  <!-- 顶部宝宝信息 -->
+  <view class="header">
+    <view class="avatar">{{babyName[0] || '宝'}}</view>
+    <view class="header-info">
+      <view class="baby-name">{{babyName}}</view>
+      <view class="baby-age">{{ageText}}</view>
+      <view class="baby-days">{{daysText}}</view>
+    </view>
+    <view class="header-badge">👶</view>
+  </view>
+
+  <!-- 概览卡片 -->
+  <view class="overview">
+    <view class="overview-card">
+      <view class="overview-label">上次喂养</view>
+      <block wx:if="{{lastFeed}}">
+        <view class="overview-value">{{lastFeed.icon}} {{lastFeed.timeText}}</view>
+        <view class="overview-sub">{{lastFeed.desc}}</view>
+      </block>
+      <view wx:else class="overview-empty">暂无记录</view>
+    </view>
+    <view class="overview-card">
+      <view class="overview-label">今日睡眠</view>
+      <view class="overview-value">😴 {{todaySleepText}}</view>
+      <view class="overview-sub">{{todaySleepMinutes}} 分钟</view>
+    </view>
+  </view>
+
+  <!-- 快速记录 -->
+  <view class="card quick-card">
+    <view class="section-title">快速记录</view>
+    <view class="quick-grid">
+      <view class="quick-item" wx:for="{{quickActions}}" wx:key="type" data-type="{{item.type}}" bindtap="onQuickTap" style="background:{{item.color}}1A;">
+            <view class="quick-icon" style="background:{{item.color}};">{{item.icon}}</view>
+            <view class="quick-label">{{item.label}}</view>
+          </view>
+    </view>
+  </view>
+
+  <!-- 今日记录 -->
+  <view class="card record-card">
+    <view class="section-title">今天的记录</view>
+    <view class="section-subtitle">{{todayRecords.length ? '共 ' + todayRecords.length + ' 条' : '还没有记录，点击下方按钮添加'}}</view>
+
+    <view wx:if="{{todayRecords.length === 0}}" class="empty-hint">
+      <view class="empty-emoji">📝</view>
+      <view class="empty-text">记录宝宝的每一次成长</view>
+    </view>
+
+    <view wx:for="{{todayRecords}}" wx:key="id" class="record-item" data-id="{{item.id}}" bindtap="onRecordTap">
+      <view class="record-icon" style="background:{{item.color}};">{{item.icon}}</view>
+      <view class="record-body">
+        <view class="record-top">
+          <text class="record-type">{{item.typeLabel}}</text>
+          <text class="record-time">{{item.timeText}}</text>
+        </view>
+        <view class="record-desc">{{item.desc}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view style="height: 40rpx;"></view>
+
+  <!-- 悬浮添加按钮 -->
+  <view class="fab" bindtap="onAddTap">＋</view>
+</view>
