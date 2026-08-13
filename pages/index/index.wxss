@@ -53,6 +53,34 @@
   font-size: 60rpx;
 }
 
+/* 多宝宝切换条 */
+.baby-bar {
+  padding: 20rpx 30rpx 0;
+}
+.baby-scroll {
+  white-space: nowrap;
+}
+.baby-chip {
+  display: inline-block;
+  padding: 12rpx 28rpx;
+  margin-right: 16rpx;
+  border-radius: 40rpx;
+  background: var(--card);
+  color: var(--text-secondary);
+  font-size: 26rpx;
+  border: 1rpx solid var(--border);
+}
+.baby-chip.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.baby-chip.add {
+  background: transparent;
+  color: var(--primary);
+  border: 1rpx dashed var(--primary);
+}
+
 /* 概览卡片 */
 .overview {
   display: flex;
@@ -63,7 +91,7 @@
 
 .overview-card {
   flex: 1;
-  background: #fff;
+  background: var(--card);
   border-radius: 24rpx;
   padding: 26rpx 28rpx;
   box-shadow: 0 6rpx 24rpx rgba(255, 123, 123, 0.12);
@@ -71,25 +99,36 @@
 
 .overview-label {
   font-size: 24rpx;
-  color: #999;
+  color: var(--text-tertiary);
 }
 
 .overview-value {
   font-size: 34rpx;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
   margin-top: 12rpx;
 }
 
 .overview-sub {
   font-size: 24rpx;
-  color: #666;
+  color: var(--text-secondary);
   margin-top: 6rpx;
+}
+
+.overview-ago {
+  font-size: 24rpx;
+  color: #FF7B7B;
+  margin-top: 8rpx;
+  font-weight: 500;
+}
+
+.overview-ago.sleeping {
+  color: #9BB5FF;
 }
 
 .overview-empty {
   font-size: 30rpx;
-  color: #bbb;
+  color: var(--text-tertiary);
   margin-top: 12rpx;
 }
 
@@ -127,7 +166,7 @@
 
 .quick-label {
   font-size: 26rpx;
-  color: #444;
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
@@ -147,7 +186,7 @@
 
 .empty-text {
   font-size: 26rpx;
-  color: #aaa;
+  color: var(--text-tertiary);
   margin-top: 16rpx;
 }
 
@@ -155,7 +194,7 @@
   display: flex;
   align-items: center;
   padding: 22rpx 0;
-  border-bottom: 1rpx solid #f5eeea;
+  border-bottom: 1rpx solid var(--border);
 }
 
 .record-item:last-child {
@@ -186,17 +225,17 @@
 .record-type {
   font-size: 30rpx;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .record-time {
   font-size: 26rpx;
-  color: #999;
+  color: var(--text-tertiary);
 }
 
 .record-desc {
   font-size: 26rpx;
-  color: #666;
+  color: var(--text-secondary);
   margin-top: 6rpx;
 }
 

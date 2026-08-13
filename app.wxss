@@ -17,9 +17,42 @@ page {
   --bg: #FFF8F5;
   --card: #FFFFFF;
   --border: #F0E6E2;
+  --surface-2: #F7F1EE;
   background-color: var(--bg);
   color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}
+
+/* 页面根容器：深色模式在此切换变量 */
+.page {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+.page.dark {
+  --primary: #FF9EB5;
+  --primary-light: #3a2730;
+  --secondary: #FFC06B;
+  --secondary-light: #3a2f1f;
+  --sleep: #9BB5FF;
+  --sleep-light: #1f2638;
+  --diaper: #7EDDD6;
+  --diaper-light: #17302e;
+  --pump: #FF9EB5;
+  --pump-light: #3a2730;
+  --medicine: #B8A1E6;
+  --medicine-light: #2b2440;
+  --text-primary: #ECECEC;
+  --text-secondary: #B5B5B5;
+  --text-tertiary: #8A8A8A;
+  --bg: #161616;
+  --card: #262626;
+  --border: #383838;
+  --surface-2: #2F2F2F;
+  background: var(--bg);
+  color: var(--text-primary);
 }
 
 .container {

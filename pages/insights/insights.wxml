@@ -1,23 +1,23 @@
-<view class="page">
+<view class="page {{appDark ? 'dark' : ''}}">
   <!-- 今日概览 -->
   <view class="section-title">今日概览</view>
   <view class="stat-grid">
-    <view class="stat-card" style="background:#FFF0F0;">
+    <view class="stat-card" style="background:var(--primary-light);">
       <view class="stat-icon">🍼</view>
       <view class="stat-value">{{stats.feedAmount}}<text class="stat-unit">ml</text></view>
       <view class="stat-label">喂奶总量</view>
     </view>
-    <view class="stat-card" style="background:#FFF0F4;">
+    <view class="stat-card" style="background:var(--pump-light);">
       <view class="stat-icon">🤱</view>
       <view class="stat-value">{{stats.breastMinutes}}<text class="stat-unit">分</text></view>
       <view class="stat-label">亲喂时长</view>
     </view>
-    <view class="stat-card" style="background:#F0F4FF;">
+    <view class="stat-card" style="background:var(--sleep-light);">
       <view class="stat-icon">😴</view>
       <view class="stat-value">{{stats.sleepMinutes}}<text class="stat-unit">分</text></view>
       <view class="stat-label">睡眠时长</view>
     </view>
-    <view class="stat-card" style="background:#E8FAF8;">
+    <view class="stat-card" style="background:var(--diaper-light);">
       <view class="stat-icon">👶</view>
       <view class="stat-value">{{stats.diaperCount}}<text class="stat-unit">次</text></view>
       <view class="stat-label">换尿布</view>
@@ -39,6 +39,34 @@
       <view class="count-item">
         <text class="count-num">{{stats.medicineCount}}</text>
         <text class="count-label">补剂</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 重要日子倒计时 -->
+  <view class="card">
+    <view class="section-title">重要日子倒计时</view>
+    <view class="anni-row" wx:for="{{anniversary}}" wx:key="name">
+      <view class="anni-name">{{item.name}}</view>
+      <view class="anni-bar">
+        <view class="anni-fill {{item.passed ? 'passed' : ''}}" style="width:{{item.percent}}%;"></view>
+      </view>
+      <view class="anni-text {{item.passed ? 'passed' : ''}}">{{item.text}}</view>
+    </view>
+    <view wx:if="{{anniversary.length === 0}}" class="anni-tip">在「家庭」设置宝宝出生日期后显示</view>
+  </view>
+
+  <!-- 今日分析 -->
+  <view class="card">
+    <view class="section-title">今日分析</view>
+    <view class="count-row">
+      <view class="count-item">
+        <text class="count-num">{{feedAvgInterval}}<text class="count-sub">分</text></text>
+        <text class="count-label">平均喂奶间隔</text>
+      </view>
+      <view class="count-item">
+        <text class="count-num">{{longestSleep}}<text class="count-sub">分</text></text>
+        <text class="count-label">最长单次睡眠</text>
       </view>
     </view>
   </view>

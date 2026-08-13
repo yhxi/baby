@@ -1,0 +1,64 @@
+<view class="page {{appDark ? 'dark' : ''}}">
+  <view class="section-title">生长记录</view>
+  <view class="section-subtitle">记录身高、体重、头围，查看生长曲线</view>
+
+  <view class="card actions">
+    <view class="action-btn" bindtap="toggleForm">➕ 添加记录</view>
+    <view class="action-btn chart" bindtap="onChartTap">📈 查看曲线</view>
+  </view>
+
+  <!-- 添加表单 -->
+  <view class="card" wx:if="{{showForm}}">
+    <view class="form-row">
+      <text class="form-label">日期</text>
+      <picker mode="date" value="{{date}}" bindchange="onDateChange">
+        <view class="form-value">{{date}} <text class="arrow">›</text></view>
+      </picker>
+    </view>
+    <view class="form-row">
+      <text class="form-label">时间</text>
+      <picker mode="time" value="{{time}}" bindchange="onTimeChange">
+        <view class="form-value">{{time}} <text class="arrow">›</text></view>
+      </picker>
+    </view>
+    <view class="form-row">
+      <text class="form-label">身高</text>
+      <input class="form-input" type="digit" placeholder="cm" value="{{height}}" bindinput="onHeightInput" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">体重</text>
+      <input class="form-input" type="digit" placeholder="kg" value="{{weight}}" bindinput="onWeightInput" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">头围</text>
+      <input class="form-input" type="digit" placeholder="cm" value="{{headCircumference}}" bindinput="onHeadInput" />
+    </view>
+    <view class="form-row col">
+      <text class="form-label">备注</text>
+      <textarea class="form-textarea" placeholder="可选" value="{{note}}" bindinput="onNoteInput" />
+    </view>
+    <button class="btn-save" bindtap="onSave">保存</button>
+  </view>
+
+  <!-- 记录列表 -->
+  <view class="card">
+    <view wx:if="{{records.length === 0}}" class="empty">
+      <view class="empty-emoji">📏</view>
+      <view class="empty-text">还没有生长记录</view>
+    </view>
+
+    <view wx:for="{{records}}" wx:key="id" class="growth-item" data-id="{{item.id}}" bindtap="onItemTap">
+      <view class="growth-main">
+        <view class="growth-date">{{item.dateText}} · {{item.months}}月龄</view>
+        <view class="growth-values">
+          <text wx:if="{{item.height}}">身高 {{item.height}} cm</text>
+          <text wx:if="{{item.weight}}">体重 {{item.weight}} kg</text>
+          <text wx:if="{{item.headCircumference}}">头围 {{item.headCircumference}} cm</text>
+        </view>
+        <view wx:if="{{item.evalText}}" class="growth-eval">{{item.evalText}}</view>
+        <view wx:if="{{item.note}}" class="growth-note">备注：{{item.note}}</view>
+      </view>
+      <text class="arrow">›</text>
+    </view>
+  </view>
+</view>

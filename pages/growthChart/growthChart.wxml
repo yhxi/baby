@@ -1,0 +1,27 @@
+<view class="page {{appDark ? 'dark' : ''}}">
+  <view class="section-title">生长曲线</view>
+  <view class="section-subtitle">对比 WHO 0-24 月参考标准</view>
+
+  <!-- 指标切换 -->
+  <view class="card metric-tabs">
+    <view class="tab {{metric === item.key ? 'active' : ''}}" wx:for="{{metrics}}" wx:key="key" data-key="{{item.key}}" bindtap="onMetricChange">
+      {{item.label}}
+    </view>
+  </view>
+
+  <!-- 最新数据 -->
+  <view class="card latest-card" wx:if="{{latest}}">
+    <view class="latest-title">最新{{latestLabel}}</view>
+    <view class="latest-value">{{latest[metric]}} <text class="unit">{{latestUnit}}</text></view>
+    <view wx:if="{{latestEval}}" class="latest-eval" style="color:{{latestEval.color}};">
+      {{latestEval.months}}月龄 · {{latestEval.label}}
+    </view>
+  </view>
+
+  <!-- 曲线图 -->
+  <view class="card chart-card">
+    <canvas type="2d" id="growthCanvas" class="canvas"></canvas>
+  </view>
+
+  <view style="height: 30rpx;"></view>
+</view>

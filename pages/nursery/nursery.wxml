@@ -1,0 +1,43 @@
+<view class="page {{appDark ? 'dark' : ''}}">
+  <view class="section-title">早教儿歌</view>
+  <view class="section-subtitle">经典儿歌歌词库 · 共 {{list.length}} 首 · 点亮❤收藏</view>
+
+  <!-- 搜索 -->
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索儿歌名或歌词" value="{{keyword}}" bindinput="onSearch" />
+  </view>
+
+  <!-- 分类 -->
+  <scroll-view scroll-x class="cats">
+    <view class="cat {{category === item ? 'active' : ''}}" wx:for="{{categories}}" wx:key="*this" data-c="{{item}}" bindtap="onCategoryTap">{{item}}</view>
+  </scroll-view>
+
+  <!-- 列表 -->
+  <view class="card">
+    <view class="rhyme-item" wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" bindtap="onItemTap">
+      <view class="rhyme-icon">🎵</view>
+      <view class="rhyme-main">
+        <view class="rhyme-title">{{item.title}}</view>
+        <view class="rhyme-cat">{{item.category}}</view>
+      </view>
+      <view class="rhyme-fav {{item.fav ? 'on' : ''}}" data-id="{{item.id}}" catchtap="onFavTap">{{item.fav ? '❤' : '🤍'}}</view>
+    </view>
+  </view>
+
+  <!-- 详情 -->
+  <view wx:if="{{showDetail}}" class="mask" bindtap="closeDetail">
+    <view class="sheet" catchtap="noop">
+      <view class="detail-head">
+        <view class="detail-title">{{current.title}}</view>
+        <view class="detail-cat">{{current.category}}</view>
+      </view>
+      <scroll-view scroll-y class="lyric-box">
+        <text class="lyric">{{current.lyric}}</text>
+      </scroll-view>
+      <view class="detail-tip">💡 妈妈可以照着歌词唱给宝宝听～</view>
+      <button class="btn-close" bindtap="closeDetail">关闭</button>
+    </view>
+  </view>
+
+  <view style="height: 30rpx;"></view>
+</view>

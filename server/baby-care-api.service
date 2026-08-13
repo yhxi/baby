@@ -1,0 +1,19 @@
+[Unit]
+Description=Baby Care Mini Program API
+After=network.target
+
+[Service]
+Type=simple
+User=babycare
+WorkingDirectory=/opt/baby-care
+ExecStart=/usr/bin/node /opt/baby-care/server.js
+Restart=always
+RestartSec=3
+EnvironmentFile=/opt/baby-care/.env
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=/opt/baby-care/data
+
+[Install]
+WantedBy=multi-user.target

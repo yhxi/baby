@@ -1,4 +1,4 @@
-<view class="page">
+<view class="page {{appDark ? 'dark' : ''}}">
   <!-- 顶部宝宝信息 -->
   <view class="header">
     <view class="avatar">{{babyName[0] || '宝'}}</view>
@@ -10,6 +10,14 @@
     <view class="header-badge">👶</view>
   </view>
 
+  <!-- 多宝宝切换 -->
+  <view class="baby-bar">
+    <scroll-view scroll-x class="baby-scroll">
+      <view class="baby-chip {{item.id === activeBabyId ? 'active' : ''}}" wx:for="{{babies}}" wx:key="id" data-id="{{item.id}}" bindtap="onBabyTap">{{item.name}}</view>
+      <view class="baby-chip add" bindtap="onManageBaby">＋</view>
+    </scroll-view>
+  </view>
+
   <!-- 概览卡片 -->
   <view class="overview">
     <view class="overview-card">
@@ -17,6 +25,7 @@
       <block wx:if="{{lastFeed}}">
         <view class="overview-value">{{lastFeed.icon}} {{lastFeed.timeText}}</view>
         <view class="overview-sub">{{lastFeed.desc}}</view>
+        <view class="overview-ago">{{lastFeedAgoText}}</view>
       </block>
       <view wx:else class="overview-empty">暂无记录</view>
     </view>
@@ -24,6 +33,7 @@
       <view class="overview-label">今日睡眠</view>
       <view class="overview-value">😴 {{todaySleepText}}</view>
       <view class="overview-sub">{{todaySleepMinutes}} 分钟</view>
+      <view class="overview-ago {{isSleeping ? 'sleeping' : ''}}">{{sleepStatusText}}</view>
     </view>
   </view>
 

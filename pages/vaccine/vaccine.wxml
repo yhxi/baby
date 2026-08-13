@@ -1,0 +1,57 @@
+<view class="page {{appDark ? 'dark' : ''}}">
+  <view class="section-title">疫苗接种</view>
+  <view class="section-subtitle">国家免疫规划程序 · 共 {{total}} 剂</view>
+
+  <view class="card progress-card">
+    <view class="progress-text">已接种 <text class="hl">{{doneCount}}</text> / {{total}} 剂</view>
+    <view class="progress-bar">
+      <view class="progress-fill" style="width:{{total ? (doneCount/total*100) : 0}}%;"></view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="vac-item {{item.done ? 'done' :''}}" wx:for="{{list}}" wx:key="key" data-key="{{item.key}}" bindtap="onItemTap">
+      <view class="vac-check">{{item.done ? '✓' : ''}}</view>
+      <view class="vac-main">
+        <view class="vac-name">{{item.name}} <text class="vac-dose">第{{item.dose}}剂</text></view>
+        <view class="vac-note">{{item.note}}<text wx:if="{{item.done}}" class="vac-done-date"> · 已接种 {{item.doneDate}}</text></view>
+      </view>
+      <text class="arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 接种弹窗 -->
+  <view wx:if="{{showForm}}" class="mask" bindtap="closeForm">
+    <view class="sheet" catchtap="noop">
+      <view class="sheet-title">记录接种：{{current.name}}（第{{current.dose}}剂）</view>
+      <view class="form-row">
+        <text class="form-label">日期</text>
+        <picker mode="date" value="{{date}}" bindchange="onDateChange">
+          <view class="form-value">{{date}} <text class="arrow">›</text></view>
+        </picker>
+      </view>
+      <view class="form-row">
+        <text class="form-label">时间</text>
+        <picker mode="time" value="{{time}}" bindchange="onTimeChange">
+          <view class="form-value">{{time}} <text class="arrow">›</text></view>
+        </picker>
+      </view>
+      <view class="form-row">
+        <text class="form-label">批号</text>
+        <input class="form-input" placeholder="选填" value="{{batch}}" bindinput="onBatchInput" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">部位</text>
+        <input class="form-input" placeholder="如：左臂" value="{{site}}" bindinput="onSiteInput" />
+      </view>
+      <view class="form-row col">
+        <text class="form-label">反应</text>
+        <textarea class="form-textarea" placeholder="接种后反应（选填）" value="{{reaction}}" bindinput="onReactionInput" />
+      </view>
+      <button class="btn-save" bindtap="onSave">保存接种记录</button>
+      <button class="btn-cancel" bindtap="closeForm">取消</button>
+    </view>
+  </view>
+
+  <view style="height: 30rpx;"></view>
+</view>

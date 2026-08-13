@@ -1,0 +1,164 @@
+.page {
+  min-height: 100vh;
+  padding: 30rpx;
+}
+
+.section-title {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.section-subtitle {
+  font-size: 24rpx;
+  color: var(--text-tertiary);
+  margin-bottom: 20rpx;
+}
+
+.search-bar {
+  margin-bottom: 20rpx;
+}
+
+.search-input {
+  background: var(--card);
+  border-radius: 40rpx;
+  padding: 18rpx 30rpx;
+  font-size: 28rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.cats {
+  white-space: nowrap;
+  margin-bottom: 20rpx;
+}
+
+.cat {
+  display: inline-block;
+  padding: 12rpx 30rpx;
+  margin-right: 16rpx;
+  border-radius: 30rpx;
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  font-size: 26rpx;
+}
+
+.cat.active {
+  background: #FF7B7B;
+  color: #fff;
+}
+
+.rhyme-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid var(--border);
+}
+
+.rhyme-item:last-child {
+  border-bottom: none;
+}
+
+.rhyme-icon {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 18rpx;
+  background: #FFF0F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  margin-right: 22rpx;
+}
+
+.rhyme-main {
+  flex: 1;
+}
+
+.rhyme-title {
+  font-size: 30rpx;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.rhyme-cat {
+  font-size: 24rpx;
+  color: var(--text-tertiary);
+  margin-top: 4rpx;
+}
+
+.rhyme-fav {
+  font-size: 44rpx;
+  margin-left: 10rpx;
+}
+
+.rhyme-fav.on {
+  transform: scale(1.1);
+}
+
+/* 详情 */
+.mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sheet {
+  width: 84%;
+  background: var(--card);
+  border-radius: 28rpx;
+  padding: 40rpx;
+  box-sizing: border-box;
+}
+
+.detail-head {
+  text-align: center;
+  margin-bottom: 20rpx;
+}
+
+.detail-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.detail-cat {
+  font-size: 24rpx;
+  color: #FF7B7B;
+  margin-top: 8rpx;
+}
+
+.lyric-box {
+  max-height: 560rpx;
+  padding: 10rpx 0;
+}
+
+.lyric {
+  font-size: 32rpx;
+  line-height: 2;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+}
+
+.detail-tip {
+  font-size: 24rpx;
+  color: var(--text-tertiary);
+  text-align: center;
+  margin-top: 20rpx;
+}
+
+.btn-close {
+  margin-top: 24rpx;
+  background: linear-gradient(135deg, #FF7B7B 0%, #FF9EB5 100%);
+  color: #fff;
+  font-size: 30rpx;
+  border-radius: 50rpx;
+  border: none;
+}
+
+button::after {
+  border: none;
+}

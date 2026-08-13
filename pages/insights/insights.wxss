@@ -6,7 +6,7 @@
 .section-title {
   font-size: 34rpx;
   font-weight: 600;
-  color: #333;
+  color: var(--text-primary);
   margin: 10rpx 0 20rpx;
 }
 
@@ -31,20 +31,20 @@
 .stat-value {
   font-size: 48rpx;
   font-weight: 700;
-  color: #333;
+  color: var(--text-primary);
   margin-top: 10rpx;
 }
 
 .stat-unit {
   font-size: 24rpx;
   font-weight: 400;
-  color: #999;
+  color: var(--text-tertiary);
   margin-left: 6rpx;
 }
 
 .stat-label {
   font-size: 26rpx;
-  color: #666;
+  color: var(--text-secondary);
   margin-top: 6rpx;
 }
 
@@ -72,7 +72,7 @@
 
 .count-label {
   font-size: 26rpx;
-  color: #666;
+  color: var(--text-secondary);
   margin-top: 6rpx;
 }
 
@@ -104,12 +104,67 @@
 
 .bar-min {
   font-size: 20rpx;
-  color: #999;
+  color: var(--text-tertiary);
   margin-top: 8rpx;
 }
 
 .bar-day {
   font-size: 22rpx;
-  color: #666;
+  color: var(--text-secondary);
   margin-top: 4rpx;
+}
+
+.count-sub {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
+  margin-left: 4rpx;
+}
+
+.anni-row {
+  display: flex;
+  align-items: center;
+  margin: 18rpx 0;
+}
+
+.anni-name {
+  width: 90rpx;
+  font-size: 26rpx;
+  color: var(--text-primary);
+}
+
+.anni-bar {
+  flex: 1;
+  height: 16rpx;
+  background: #FFF0F0;
+  border-radius: 8rpx;
+  overflow: hidden;
+  margin: 0 18rpx;
+}
+
+.anni-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF9EB5 0%, #FF7B7B 100%);
+  border-radius: 8rpx;
+}
+
+.anni-fill.passed {
+  background: #FFB347;
+}
+
+.anni-text {
+  width: 180rpx;
+  text-align: right;
+  font-size: 24rpx;
+  color: #FF7B7B;
+}
+
+.anni-text.passed {
+  color: #FFB347;
+}
+
+.anni-tip {
+  font-size: 24rpx;
+  color: var(--text-tertiary);
+  text-align: center;
+  padding: 10rpx 0;
 }

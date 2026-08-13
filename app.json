@@ -4,7 +4,13 @@
     "pages/timeline/timeline",
     "pages/insights/insights",
     "pages/family/family",
-    "pages/record/record"
+    "pages/record/record",
+    "pages/growth/growth",
+    "pages/growthChart/growthChart",
+    "pages/vaccine/vaccine",
+    "pages/nursery/nursery",
+    "pages/log/log",
+    "pages/noise/noise"
   ],
   "window": {
     "navigationBarTitleText": "宝宝养育计划",

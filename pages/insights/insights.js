@@ -1,4 +1,5 @@
 const storage = require('../../utils/storage.js')
+const app = getApp()
 
 function pad(n) { return ('0' + n).slice(-2) }
 function dateKey(d) {
@@ -7,7 +8,8 @@ function dateKey(d) {
 
 Page({
   data: {
-    stats: {
+    
+    appDark: false,stats: {
       feedCount: 0,
       feedAmount: 0,
       breastCount: 0,
@@ -16,11 +18,16 @@ Page({
       diaperCount: 0,
       medicineCount: 0
     },
-    weekBars: []
+    weekBars: [],
+    anniversary: [],
+    feedAvgInterval: 0,
+    longestSleep: 0
   },
 
   onShow() {
-    this.refresh()
+    
+    this.setData({ appDark: getApp().globalData.theme === 'dark' })
+this.refresh()
   },
 
   onPullDownRefresh() {
@@ -72,6 +79,40 @@ Page({
       b.height = Math.round((b.minutes / maxVal) * 100) || 2
     })
 
-    this.setData({ stats, weekBars })
+    // 重要日子倒计时（满月/百天/半岁/周岁）
+    const profile = storage.getProfile()
+    let anniversary = []
+    if (profile && profile.birthDate) {
+      const birth = new Date(profile.birthDate)
+      const marks = [
+        { name: '满月', days: 30 },
+        { name: '百天', days: 100 },
+        { name: '半岁', days: 182 },
+        { name: '周岁', days: 365 }
+      ]
+      anniversary = marks.map(m => {
+        const target = new Date(birth.getTime() + m.days * 86400000)
+        const diff = Math.round((target - now) / 86400000)
+        return {
+          name: m.name,
+          text: diff > 0 ? '还有 ' + diff + ' 天' : '已过 ' + Math.abs(diff) + ' 天',
+          passed: diff <= 0,
+          percent: Math.min(100, Math.max(0, Math.round((1 - Math.abs(diff) / m.days) * 100)))
+        }
+      })
+    }
+
+    // 喂奶间隔 & 最长睡眠
+    const feedsToday = today.filter(r => r.type === 'feed' || r.type === 'breast' || r.type === 'pump').sort((a, b) => a.time - b.time)
+    let feedAvgInterval = 0
+    if (feedsToday.length >= 2) {
+      let total = 0
+      for (let i = 1; i < feedsToday.length; i++) total += (feedsToday[i].time - feedsToday[i - 1].time)
+      feedAvgInterval = Math.round(total / (feedsToday.length - 1) / 60000)
+    }
+    let longestSleep = 0
+    today.filter(r => r.type === 'sleep').forEach(r => { longestSleep = Math.max(longestSleep, r.duration || 0) })
+
+    this.setData({ stats, weekBars, anniversary, feedAvgInterval, longestSleep })
   }
 })

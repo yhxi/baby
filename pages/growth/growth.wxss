@@ -1,0 +1,157 @@
+.page {
+  min-height: 100vh;
+  padding: 30rpx;
+}
+
+.section-title {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.section-subtitle {
+  font-size: 26rpx;
+  color: var(--text-tertiary);
+  margin-bottom: 24rpx;
+}
+
+.actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.action-btn {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  border-radius: 18rpx;
+  background: #FFF0F0;
+  color: #FF7B7B;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.action-btn.chart {
+  background: #F0F4FF;
+  color: #9BB5FF;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 22rpx 0;
+  border-bottom: 1rpx solid var(--border);
+}
+
+.form-row:last-child {
+  border-bottom: none;
+}
+
+.form-row.col {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.form-label {
+  width: 140rpx;
+  font-size: 30rpx;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.form-value {
+  flex: 1;
+  text-align: right;
+  font-size: 30rpx;
+  color: var(--text-primary);
+}
+
+.form-input {
+  flex: 1;
+  text-align: right;
+  font-size: 30rpx;
+}
+
+.form-textarea {
+  width: 100%;
+  height: 120rpx;
+  font-size: 28rpx;
+  margin-top: 10rpx;
+}
+
+.arrow {
+  color: var(--text-tertiary);
+  margin-left: 8rpx;
+}
+
+.btn-save {
+  margin-top: 20rpx;
+  background: linear-gradient(135deg, #FF7B7B 0%, #FF9EB5 100%);
+  color: #fff;
+  font-size: 30rpx;
+  font-weight: 600;
+  border-radius: 50rpx;
+  border: none;
+}
+
+button::after {
+  border: none;
+}
+
+.empty {
+  text-align: center;
+  padding: 60rpx 0;
+}
+
+.empty-emoji {
+  font-size: 70rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: var(--text-tertiary);
+  margin-top: 16rpx;
+}
+
+.growth-item {
+  display: flex;
+  align-items: center;
+  padding: 26rpx 0;
+  border-bottom: 1rpx solid var(--border);
+}
+
+.growth-item:last-child {
+  border-bottom: none;
+}
+
+.growth-main {
+  flex: 1;
+}
+
+.growth-date {
+  font-size: 26rpx;
+  color: var(--text-tertiary);
+}
+
+.growth-values {
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.growth-values text {
+  margin-right: 20rpx;
+}
+
+.growth-eval {
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  color: #FF7B7B;
+}
+
+.growth-note {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: var(--text-tertiary);
+}

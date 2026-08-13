@@ -1,0 +1,52 @@
+<view class="page {{appDark ? 'dark' : ''}}">
+  <view class="section-title">{{meta.icon}} {{meta.label}}</view>
+  <view class="section-subtitle">共 {{list.length}} 条</view>
+
+  <view class="card">
+    <view wx:if="{{list.length === 0}}" class="empty">
+      <view class="empty-emoji">{{meta.icon}}</view>
+      <view class="empty-text">还没有记录</view>
+    </view>
+
+    <view wx:for="{{list}}" wx:key="id" class="log-item" data-id="{{item.id}}" bindtap="onItemTap">
+      <view class="log-icon" style="background:{{meta.color}}1A;color:{{meta.color}};">{{meta.icon}}</view>
+      <view class="log-main">
+        <view class="log-title">{{item.titleText}}<text wx:if="{{item.fever}}" class="fever">⚠️发热</text></view>
+        <view wx:if="{{item.subText}}" class="log-sub">{{item.subText}}</view>
+        <view class="log-date">{{item.dateText}}</view>
+      </view>
+      <text class="arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 添加 -->
+  <view class="fab" bindtap="toggleForm">＋</view>
+
+  <!-- 表单 -->
+  <view wx:if="{{showForm}}" class="mask" bindtap="toggleForm">
+    <view class="sheet" catchtap="noop">
+      <view class="sheet-title">添加{{meta.label}}</view>
+      <view class="form-row">
+        <text class="form-label">{{meta.showValue ? '名称' : '标题'}}</text>
+        <input class="form-input" placeholder="{{meta.placeholder}}" value="{{title}}" bindinput="onTitleInput" />
+      </view>
+      <view class="form-row" wx:if="{{meta.showValue}}">
+        <text class="form-label">{{meta.valueLabel}}</text>
+        <input class="form-input" type="digit" placeholder="0" value="{{value}}" bindinput="onValueInput" />
+      </view>
+      <view wx:if="{{meta.showAccept}}" class="seg">
+        <view class="seg-item {{accept === '喜欢' ? 'active' : ''}}" data-v="喜欢" bindtap="onAcceptChange">喜欢</view>
+        <view class="seg-item {{accept === '一般' ? 'active' : ''}}" data-v="一般" bindtap="onAcceptChange">一般</view>
+        <view class="seg-item {{accept === '拒绝' ? 'active' : ''}}" data-v="拒绝" bindtap="onAcceptChange">拒绝</view>
+      </view>
+      <view class="form-row col">
+        <text class="form-label">备注</text>
+        <textarea class="form-textarea" placeholder="选填" value="{{note}}" bindinput="onNoteInput" />
+      </view>
+      <button class="btn-save" bindtap="onSave">保存</button>
+      <button class="btn-cancel" bindtap="toggleForm">取消</button>
+    </view>
+  </view>
+
+  <view style="height: 40rpx;"></view>
+</view>

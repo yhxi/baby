@@ -1,5 +1,5 @@
-<view class="page">
-  <!-- 宝宝档案 -->
+<view class="page {{appDark ? 'dark' : ''}}">
+  <!-- 当前宝宝档案 -->
   <view class="section-title">宝宝档案</view>
   <view class="card">
     <view class="form-row">
@@ -27,27 +27,115 @@
     <button class="btn-save-flat" bindtap="onSaveProfile">保存档案</button>
   </view>
 
-  <!-- 数据 -->
-  <view class="section-title">我的数据</view>
+  <!-- 多宝宝管理 -->
+  <view class="section-title">我的宝宝</view>
+  <view class="card">
+    <view class="baby-row" wx:for="{{babies}}" wx:key="id" data-id="{{item.id}}" bindtap="onBabyTap">
+      <view class="baby-avatar">{{item.gender === 'boy' ? '👦' : (item.gender === 'girl' ? '👧' : '👶')}}</view>
+      <view class="baby-main">
+        <view class="baby-name">
+          {{item.name}}
+          <text wx:if="{{item.active}}" class="baby-tag">当前</text>
+        </view>
+        <view class="baby-age">{{item.ageText}}</view>
+      </view>
+      <view class="baby-ops">
+        <text class="baby-op" data-id="{{item.id}}" catchtap="openEditBaby">✎</text>
+        <text class="baby-op del" data-id="{{item.id}}" catchtap="deleteBaby">🗑</text>
+      </view>
+    </view>
+    <view class="baby-add" bindtap="openBabyForm">＋ 添加宝宝</view>
+  </view>
+
+  <!-- 外观 -->
+  <view class="section-title">外观</view>
+  <view class="card">
+    <view class="form-row">
+      <text class="form-label">🌙 夜间模式</text>
+      <switch checked="{{appDark}}" color="#FF7B7B" bindchange="onToggleTheme" />
+    </view>
+  </view>
+
+  <!-- 数据备份 -->
+  <view class="section-title">数据备份</view>
   <view class="card">
     <view class="form-row">
       <text class="form-label">记录总数</text>
       <text class="form-static">{{recordCount}} 条</text>
     </view>
-    <view class="menu-item" bindtap="onExport">
-      <text>导出数据</text>
+    <view class="backup-grid">
+      <view class="backup-btn" bindtap="onExportFile">📤 导出备份</view>
+      <view class="backup-btn" bindtap="onImportFile">📥 导入恢复</view>
+      <view class="backup-btn cloud" bindtap="onCloudBackup">☁️ 云端备份</view>
+      <view class="backup-btn cloud" bindtap="onCloudRestore">☁️ 云端恢复</view>
+    </view>
+    <view class="cloud-env" bindtap="openCloudForm">
+      <text>云环境 ID：{{cloudEnv || '未设置（点击填写）'}}</text>
       <text class="arrow">›</text>
     </view>
-    <view class="menu-item danger" bindtap="onClear">
-      <text>清空所有数据</text>
-      <text class="arrow">›</text>
-    </view>
+  </view>
+
+  <!-- 育儿工具 -->
+  <view class="section-title">育儿工具</view>
+  <view class="card tool-grid">
+    <navigator url="/pages/growth/growth" class="tool-item"><view class="tool-icon">📏</view><text>生长曲线</text></navigator>
+    <navigator url="/pages/growthChart/growthChart" class="tool-item"><view class="tool-icon">📈</view><text>生长对比</text></navigator>
+    <navigator url="/pages/vaccine/vaccine" class="tool-item"><view class="tool-icon">💉</view><text>疫苗接种</text></navigator>
+    <navigator url="/pages/nursery/nursery" class="tool-item"><view class="tool-icon">🎵</view><text>早教儿歌</text></navigator>
+    <navigator url="/pages/noise/noise" class="tool-item"><view class="tool-icon">🌊</view><text>白噪音</text></navigator>
+    <navigator url="/pages/log/log?category=milestone" class="tool-item"><view class="tool-icon">🏆</view><text>发育里程碑</text></navigator>
+    <navigator url="/pages/log/log?category=food" class="tool-item"><view class="tool-icon">🍚</view><text>辅食日记</text></navigator>
+    <navigator url="/pages/log/log?category=temp" class="tool-item"><view class="tool-icon">🌡️</view><text>体温记录</text></navigator>
+    <navigator url="/pages/log/log?category=teeth" class="tool-item"><view class="tool-icon">🦷</view><text>牙齿萌出</text></navigator>
+    <navigator url="/pages/log/log?category=note" class="tool-item"><view class="tool-icon">📝</view><text>育儿备忘录</text></navigator>
+    <navigator url="/pages/log/log?category=milk" class="tool-item"><view class="tool-icon">🥛</view><text>母乳库存</text></navigator>
   </view>
 
   <!-- 关于 -->
   <view class="about">
     <view class="about-logo">👶</view>
     <view class="about-name">宝宝养育计划</view>
-    <view class="about-ver">v1.0 · 用心记录每一次成长</view>
+    <view class="about-ver">v2.0 · 多宝宝 · 深色模式 · 白噪音 · 云端备份</view>
+  </view>
+
+  <!-- 宝宝表单 -->
+  <view wx:if="{{showBabyForm}}" class="mask" bindtap="closeBabyForm">
+    <view class="sheet" catchtap="noop">
+      <view class="sheet-title">{{editingBabyId ? '编辑宝宝' : '添加宝宝'}}</view>
+      <view class="form-row">
+        <text class="form-label">昵称</text>
+        <input class="form-input" placeholder="如：二宝" value="{{babyFormName}}" bindinput="onBabyName" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">出生日期</text>
+        <picker mode="date" value="{{babyFormDate}}" bindchange="onBabyDate">
+          <view class="form-value">{{babyFormDate || '未设置'}} <text class="arrow">›</text></view>
+        </picker>
+      </view>
+      <view class="form-row">
+        <text class="form-label">性别</text>
+        <view class="seg">
+          <view class="seg-item {{babyFormGender === 'boy' ? 'active' : ''}}" data-value="boy" bindtap="onBabyGender">小王子</view>
+          <view class="seg-item {{babyFormGender === 'girl' ? 'active' : ''}}" data-value="girl" bindtap="onBabyGender">小公主</view>
+          <view class="seg-item {{babyFormGender === 'unknown' ? 'active' : ''}}" data-value="unknown" bindtap="onBabyGender">保密</view>
+        </view>
+      </view>
+      <button class="btn-save" bindtap="saveBabyForm">保存</button>
+      <button class="btn-cancel" bindtap="closeBabyForm">取消</button>
+    </view>
+  </view>
+
+  <!-- 云环境表单 -->
+  <view wx:if="{{showCloudForm}}" class="mask" bindtap="closeCloudForm">
+    <view class="sheet" catchtap="noop">
+      <view class="sheet-title">云环境配置</view>
+      <view class="cloud-tip">在微信公众平台开通「云开发」后，复制环境 ID 填入此处，即可使用云端备份/恢复。</view>
+      <view class="form-row col">
+        <text class="form-label">云环境 ID</text>
+        <input class="form-input" placeholder="如：baby-care-1gabc" value="{{cloudEnv}}" bindinput="onCloudEnvInput" />
+      </view>
+      <button class="btn-save" bindtap="saveCloudEnv">保存</button>
+      <button class="btn-cancel" bindtap="closeCloudForm">取消</button>
+    </view>
   </view>
 </view>

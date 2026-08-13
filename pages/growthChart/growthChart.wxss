@@ -1,0 +1,75 @@
+.page {
+  min-height: 100vh;
+  padding: 30rpx;
+}
+
+.section-title {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.section-subtitle {
+  font-size: 26rpx;
+  color: var(--text-tertiary);
+  margin-bottom: 24rpx;
+}
+
+.metric-tabs {
+  display: flex;
+  gap: 16rpx;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 18rpx 0;
+  border-radius: 14rpx;
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  font-size: 28rpx;
+}
+
+.tab.active {
+  background: #FF7B7B;
+  color: #fff;
+  font-weight: 600;
+}
+
+.latest-card {
+  margin-top: 24rpx;
+}
+
+.latest-title {
+  font-size: 26rpx;
+  color: var(--text-tertiary);
+}
+
+.latest-value {
+  font-size: 56rpx;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 8rpx;
+}
+
+.unit {
+  font-size: 28rpx;
+  color: var(--text-tertiary);
+  margin-left: 8rpx;
+}
+
+.latest-eval {
+  font-size: 28rpx;
+  margin-top: 10rpx;
+  font-weight: 600;
+}
+
+.chart-card {
+  margin-top: 24rpx;
+  padding: 20rpx;
+}
+
+.canvas {
+  width: 100%;
+  height: 600rpx;
+}

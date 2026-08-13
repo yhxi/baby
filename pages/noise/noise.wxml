@@ -1,0 +1,27 @@
+<view class="page {{appDark ? 'dark' : ''}}">
+  <view class="section-title">白噪音助眠</view>
+  <view class="section-subtitle">本地合成，无需联网 · 单段 30 秒循环播放</view>
+
+  <view class="card">
+    <view class="noise-item" wx:for="{{list}}" wx:key="key">
+      <view class="noise-emoji">{{item.emoji}}</view>
+      <view class="noise-main">
+        <view class="noise-title">{{item.label}}</view>
+        <view class="noise-desc">{{item.desc}}</view>
+      </view>
+      <view class="noise-btn {{playing === item.key ? 'on' : ''}}" data-key="{{item.key}}" bindtap="{{playing === item.key ? 'stop' : 'play'}}">
+        {{playing === item.key ? '⏹ 停止' : '▶ 播放'}}
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="vol-row">
+      <text class="vol-label">🔊 音量</text>
+      <slider class="vol-slider" min="0" max="100" value="{{volume * 100}}" bindchanging="onVolume" bindchange="onVolume" activeColor="#FF7B7B" block-size="20" />
+    </view>
+    <view class="vol-tip">💡 建议手机放在宝宝床边 1 米外，音量调低，陪伴入睡后手动停止。</view>
+  </view>
+
+  <view style="height: 30rpx;"></view>
+</view>

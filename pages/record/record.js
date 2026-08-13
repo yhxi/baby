@@ -1,10 +1,12 @@
 const storage = require('../../utils/storage.js')
+const app = getApp()
 
 function pad(n) { return ('0' + n).slice(-2) }
 
 Page({
   data: {
-    isEdit: false,
+    
+    appDark: false,isEdit: false,
     recordId: '',
     type: 'feed',
     typeConfig: {},
@@ -29,7 +31,9 @@ Page({
   },
 
   onLoad(options) {
-    const types = this.data.types
+    
+    this.setData({ appDark: getApp().globalData.theme === 'dark' })
+const types = this.data.types
     if (options.id) {
       // 编辑
       const all = storage.getAll()

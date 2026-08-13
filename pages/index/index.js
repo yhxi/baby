@@ -1,4 +1,5 @@
 const storage = require('../../utils/storage.js')
+const app = getApp()
 
 function formatDuration(min) {
   if (!min) return '0分钟'
@@ -32,14 +33,29 @@ function humanAge(days) {
   return `${years}岁${restM > 0 ? restM + '个月' : ''}`
 }
 
+function agoText(ms) {
+  if (ms < 0) ms = 0
+  const min = Math.floor(ms / 60000)
+  const h = Math.floor(min / 60)
+  const m = min % 60
+  if (h > 0) return `${h}小时${m}分`
+  return `${m}分钟`
+}
+
 Page({
   data: {
+    appDark: false,
     babyName: '宝宝',
+    babies: [],
+    activeBabyId: '',
     ageText: '',
     daysText: '',
     lastFeed: null,
+    lastFeedAgoText: '',
     todaySleepMinutes: 0,
     todaySleepText: '',
+    sleepStatusText: '',
+    isSleeping: false,
     quickActions: [
       { type: 'breast', label: '亲喂', icon: '🤱', color: '#FF9EB5' },
       { type: 'feed', label: '奶瓶', icon: '🍼', color: '#FF7B7B' },
@@ -49,7 +65,8 @@ Page({
       { type: 'medicine', label: '补剂药品', icon: '💊', color: '#B8A1E6' }
     ],
     todayRecords: [],
-    hasProfile: false
+    hasProfile: false,
+    timerReady: false
   },
 
   onLoad() {
@@ -57,7 +74,57 @@ Page({
   },
 
   onShow() {
-    this.refresh()
+    
+    this.setData({ appDark: getApp().globalData.theme === 'dark' })
+this.refresh()
+    this.startTimer()
+  },
+
+  onHide() {
+    this.stopTimer()
+  },
+
+  onUnload() {
+    this.stopTimer()
+  },
+
+  startTimer() {
+    this.stopTimer()
+    this._timer = setInterval(() => {
+      this.updateAgo()
+    }, 30000)
+    this.updateAgo()
+  },
+
+  stopTimer() {
+    if (this._timer) {
+      clearInterval(this._timer)
+      this._timer = null
+    }
+  },
+
+  // 仅刷新"已过去"文案，不重新拉取列表
+  updateAgo() {
+    const now = Date.now()
+    const lastFeed = this.data.lastFeed
+    let lastFeedAgoText = ''
+    if (lastFeed && lastFeed.time) {
+      lastFeedAgoText = '已过去 ' + agoText(now - lastFeed.time)
+    }
+    const sleeps = storage.getAll().filter(r => r.type === 'sleep' && r.time).sort((a, b) => a.time - b.time)
+    let sleepStatusText = '暂无'
+    let isSleeping = false
+    const last = sleeps[sleeps.length - 1]
+    if (last) {
+      const end = last.time + (last.duration || 0) * 60 * 1000
+      if (end > now) {
+        isSleeping = true
+        sleepStatusText = '睡眠中 · 已睡 ' + agoText(now - last.time)
+      } else {
+        sleepStatusText = '清醒 · 已醒 ' + agoText(now - end)
+      }
+    }
+    this.setData({ lastFeedAgoText, sleepStatusText, isSleeping })
   },
 
   onPullDownRefresh() {
@@ -93,8 +160,25 @@ Page({
       lastFeed,
       todaySleepMinutes: sleepMinutes,
       todaySleepText: formatDuration(sleepMinutes),
-      todayRecords: today.map(r => this.decorate(r))
+      todayRecords: today.map(r => this.decorate(r)),
+      babies: storage.getProfiles().map(p => ({ id: p.id, name: p.name || '宝宝' })),
+      activeBabyId: storage.getActiveBabyId()
     })
+    this.updateAgo()
+  },
+
+  onBabyTap(e) {
+    const id = e.currentTarget.dataset.id
+    if (id === this.data.activeBabyId) return
+    wx.showModal({
+      title: '切换宝宝',
+      content: '切换后将显示该宝宝的记录',
+      success: (res) => { if (res.confirm) getApp().switchBaby(id) }
+    })
+  },
+
+  onManageBaby() {
+    wx.navigateTo({ url: '/pages/family/family' })
   },
 
   decorate(r) {
