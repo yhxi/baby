@@ -74,12 +74,12 @@ Page({
       { key: 'photo', label: '拍照', hint: '保存瞬间', icon: '📷', tint: '#FFF5D9' }
     ],
     spaceActions: [
-      { key: 'feed', label: '喂养', icon: '🍼', tone: 'gold' },
-      { key: 'sleep', label: '睡眠', icon: '🌙', tone: 'violet' },
-      { key: 'health', label: '健康', icon: '♥', tone: 'mint', url: '/pages/insights/insights' },
-      { key: 'photo', label: '成长相册', icon: '📷', tone: 'blue', url: '/pages/album/album' },
-      { key: 'vaccine', label: '疫苗接种', icon: '💉', tone: 'violet', url: '/pages/vaccine/vaccine' },
-      { key: 'hub', label: '百宝箱', icon: '🧰', tone: 'gold', url: '/pages/hub/hub' }
+      { key: 'feed', label: '喂养', icon: '🍼', tone: 'gold', left: 0 },
+      { key: 'sleep', label: '睡眠', icon: '🌙', tone: 'violet', left: 16.66 },
+      { key: 'health', label: '健康', icon: '♥', tone: 'mint', url: '/pages/insights/insights', left: 33.32 },
+      { key: 'photo', label: '成长相册', icon: '📷', tone: 'blue', url: '/pages/album/album', left: 49.98 },
+      { key: 'vaccine', label: '疫苗接种', icon: '💉', tone: 'violet', url: '/pages/vaccine/vaccine', left: 66.64 },
+      { key: 'report', label: '成长报告', icon: '▮▮▮', tone: 'gold', url: '/pages/report/report', left: 83.3 }
     ],
     workspaceNav: [
       { label: '工作台', icon: '🏠', active: true },
