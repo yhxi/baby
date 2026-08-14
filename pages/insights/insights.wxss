@@ -168,3 +168,14 @@
   text-align: center;
   padding: 10rpx 0;
 }
+
+.care-card { padding-bottom: 8rpx; }
+.hint-row { display: flex; gap: 16rpx; padding: 18rpx 0; border-top: 1rpx solid var(--border); }
+.hint-icon { width: 42rpx; font-size: 32rpx; }
+.hint-row view { flex: 1; }
+.hint-row b { display: block; color: var(--text-primary); font-size: 27rpx; }
+.hint-row text { display: block; margin-top: 6rpx; line-height: 1.55; color: var(--text-secondary); font-size: 23rpx; }
+.safety-card { margin: 0 0 28rpx; padding: 26rpx; border-radius: 22rpx; background: #fff7e7; border: 1rpx solid #ffe0a4; }
+.safety-card b { display: block; color: #9c6500; font-size: 29rpx; }
+.safety-card text { display: block; margin-top: 10rpx; color: #805f22; font-size: 24rpx; line-height: 1.65; }
+.safety-card small { display: block; margin-top: 10rpx; color: #a78b56; font-size: 21rpx; }

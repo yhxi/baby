@@ -71,6 +71,19 @@
     </view>
   </view>
 
+  <view class="card care-card">
+    <view class="section-title">照护小提示</view>
+    <view wx:for="{{careHints}}" wx:key="title" class="hint-row">
+      <text class="hint-icon">{{item.icon}}</text><view><b>{{item.title}}</b><text>{{item.text}}</text></view>
+    </view>
+  </view>
+
+  <view class="safety-card">
+    <b>需要尽快就医的情况</b>
+    <text>如新生儿出现发热、呼吸费力或发青、明显嗜睡难唤醒、持续拒奶，或你直觉感到不对劲，请及时联系儿科或急救服务。</text>
+    <small>本页只整理记录，不替代医生诊断或医嘱。</small>
+  </view>
+
   <!-- 近7天睡眠趋势 -->
   <view class="card">
     <view class="section-title">近 7 天睡眠趋势</view>

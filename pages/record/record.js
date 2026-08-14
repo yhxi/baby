@@ -37,7 +37,7 @@ Page({
 const types = this.data.types
     if (options.id) {
       // 编辑
-      const all = storage.getAll()
+      const all = storage.getAllRaw()
       const rec = all.find(r => r.id === options.id)
       if (rec) {
         const d = new Date(rec.time)
@@ -143,7 +143,7 @@ const types = this.data.types
   onSave() {
     const rec = this.buildRecord()
     if (this.data.isEdit) {
-      const all = storage.getAll()
+      const all = storage.getAllRaw()
       const idx = all.findIndex(r => r.id === this.data.recordId)
       if (idx >= 0) {
         all[idx] = Object.assign({}, all[idx], rec)

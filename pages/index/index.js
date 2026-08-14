@@ -63,13 +63,11 @@ Page({
     todaySleepText: '',
     sleepStatusText: '',
     isSleeping: false,
-    quickActions: [
-      { type: 'breast', label: '亲喂', icon: '🤱', color: '#FF9EB5' },
-      { type: 'feed', label: '奶瓶', icon: '🍼', color: '#FF7B7B' },
-      { type: 'pump', label: '泵奶', icon: '💧', color: '#FF9EB5' },
-      { type: 'sleep', label: '睡眠', icon: '😴', color: '#9BB5FF' },
-      { type: 'diaper', label: '尿布', icon: '👶', color: '#7EDDD6' },
-      { type: 'medicine', label: '补剂药品', icon: '💊', color: '#B8A1E6' }
+    coreActions: [
+      { key: 'feed', label: '喂奶', hint: '默认 150 ml', icon: '🍼', tint: '#E7F5FF' },
+      { key: 'sleep', label: '睡眠', hint: '开始记录', icon: '🌙', tint: '#EEF1FF' },
+      { key: 'diaper', label: '尿布', hint: '一键记录', icon: '👶', tint: '#E9FAF4' },
+      { key: 'photo', label: '拍照', hint: '保存瞬间', icon: '📷', tint: '#FFF5D9' }
     ],
     workspaceNav: [
       { label: '工作台', icon: '🏠', active: true },
@@ -93,6 +91,11 @@ Page({
     ageMonths: '--',
     latestWeight: '--',
     latestHeight: '--',
+    todayFeedCount: 0,
+    todayFeedTotal: 0,
+    todayDiaperCount: 0,
+    nextActionText: '记录宝宝的每一个小信号',
+    sleepStartedAt: 0,
     todayRecords: [],
     hasProfile: false,
     timerReady: false
@@ -190,6 +193,11 @@ this.refresh()
     const latestGrowth = growth[0] || {}
     const ageMonths = birthDate ? Math.max(0, Math.floor(days / 30)) : '--'
     const todayTasks = today.slice(0, 4).map(r => this.decorate(r))
+    const todayFeeds = today.filter(r => r.type === 'feed' || r.type === 'breast' || r.type === 'pump')
+    const todayFeedTotal = today.filter(r => r.type === 'feed' || r.type === 'pump').reduce((sum, r) => sum + Number(r.amount || 0), 0)
+    const todayDiaperCount = today.filter(r => r.type === 'diaper').length
+    const sleepStartedAt = wx.getStorageSync('babySleepStartedAt') || 0
+    const nextActionText = sleepStartedAt ? `正在睡眠中 · 已睡 ${agoText(Date.now() - sleepStartedAt)}` : (lastFeed ? `距上次喂养 ${agoText(Date.now() - lastFeed.time)}` : '开始记录今天的第一次照护')
     this.setData({
       hasProfile,
       babyName,
@@ -203,6 +211,11 @@ this.refresh()
       ageMonths,
       latestWeight: latestGrowth.weight || '--',
       latestHeight: latestGrowth.height || '--',
+      todayFeedCount: todayFeeds.length,
+      todayFeedTotal,
+      todayDiaperCount,
+      sleepStartedAt,
+      nextActionText,
       avatar: (profile && profile.avatar) || '',
       babies: storage.getProfiles().map(p => ({ id: p.id, name: p.name || '宝宝' })),
       activeBabyId: storage.getActiveBabyId()
@@ -266,6 +279,27 @@ this.refresh()
     wx.navigateTo({
       url: `/pages/record/record?type=${type}`
     })
+  },
+
+  onCoreAction(e) {
+    const key = e.currentTarget.dataset.key
+    if (key === 'feed') return this.onQuickTap({ currentTarget: { dataset: { type: 'feed' } } })
+    if (key === 'photo') return wx.navigateTo({ url: '/pages/album/album' })
+    if (key === 'diaper') {
+      storage.addRecord({ type: 'diaper', diaperType: 'pee', time: Date.now() })
+      wx.showToast({ title: '已记录小便', icon: 'success' }); return this.refresh()
+    }
+    const started = wx.getStorageSync('babySleepStartedAt') || 0
+    if (!started) {
+      wx.setStorageSync('babySleepStartedAt', Date.now())
+      wx.showToast({ title: '已开始睡眠计时', icon: 'success' })
+    } else {
+      const duration = Math.max(1, Math.round((Date.now() - started) / 60000))
+      storage.addRecord({ type: 'sleep', time: started, duration })
+      wx.removeStorageSync('babySleepStartedAt')
+      wx.showToast({ title: `已记录 ${duration} 分钟`, icon: 'success' })
+    }
+    this.refresh()
   },
 
   onWorkspaceTap(e) {

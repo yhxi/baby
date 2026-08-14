@@ -21,7 +21,8 @@ Page({
     weekBars: [],
     anniversary: [],
     feedAvgInterval: 0,
-    longestSleep: 0
+    longestSleep: 0,
+    careHints: []
   },
 
   onShow() {
@@ -113,6 +114,11 @@ this.refresh()
     let longestSleep = 0
     today.filter(r => r.type === 'sleep').forEach(r => { longestSleep = Math.max(longestSleep, r.duration || 0) })
 
-    this.setData({ stats, weekBars, anniversary, feedAvgInterval, longestSleep })
+    const careHints = []
+    if (!today.length) careHints.push({ icon: '📝', title: '今天还没有照护记录', text: '从一次喂养、尿布或睡眠开始，方便家人交接。' })
+    else careHints.push({ icon: '✨', title: `今天已记录 ${today.length} 次照护`, text: '持续记录即可看见自己的节奏，不需要追求“标准答案”。' })
+    if (stats.diaperCount === 0) careHints.push({ icon: '👶', title: '尿布尚未记录', text: '若有更换，可一键补记，让照护者掌握完整情况。' })
+    if (stats.medicineCount === 0) careHints.push({ icon: '💊', title: '补剂记录为空', text: '如医生已交代补剂，可在待办中设置提醒；未交代时无需自行添加。' })
+    this.setData({ stats, weekBars, anniversary, feedAvgInterval, longestSleep, careHints })
   }
 })
