@@ -18,9 +18,9 @@
   ],
   "window": {
     "navigationBarTitleText": "宝宝养育计划",
-    "navigationBarBackgroundColor": "#167FDB",
+    "navigationBarBackgroundColor": "#071846",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "#EAF7FF",
+    "backgroundColor": "#061238",
     "backgroundTextStyle": "light"
   },
   "tabBar": {

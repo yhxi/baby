@@ -95,3 +95,9 @@ page {
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+/* 深空童趣主题：所有页面的共用星空底色与玻璃卡片 */
+page { --primary:#7DB9FF; --primary-light:rgba(80,130,255,.20); --secondary:#FFD36D; --secondary-light:rgba(255,205,84,.16); --sleep:#AC8DFF; --sleep-light:rgba(153,118,255,.22); --diaper:#47DBBF; --diaper-light:rgba(48,205,176,.19); --pump:#66B7FF; --pump-light:rgba(75,163,255,.20); --medicine:#A18AFF; --medicine-light:rgba(157,129,255,.20); --text-primary:#F5F8FF; --text-secondary:#B9CAEC; --text-tertiary:#8199C3; --bg:#061238; --card:rgba(31,59,132,.68); --border:rgba(145,183,255,.34); --surface-2:rgba(92,125,210,.22); }
+.page { background:radial-gradient(circle at 8% 6%,rgba(95,137,255,.3),transparent 25%),radial-gradient(circle at 92% 20%,rgba(93,64,190,.22),transparent 28%),#061238; }
+.page.dark { --bg:#02081f; --card:rgba(20,40,95,.75); --border:rgba(145,183,255,.28); --surface-2:rgba(92,125,210,.18); background:var(--bg); }
+.card { border:1rpx solid var(--border); border-radius:28rpx; box-shadow:inset 0 1rpx rgba(255,255,255,.12),0 14rpx 30rpx rgba(0,0,38,.26); }
