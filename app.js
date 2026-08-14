@@ -37,8 +37,8 @@ App({
       wx.setBackgroundColor({ backgroundColor: '#1a1a1a', backgroundColorTop: '#1a1a1a', backgroundColorBottom: '#1a1a1a' })
       wx.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: '#1a1a1a' })
     } else {
-      wx.setBackgroundColor({ backgroundColor: '#FFF8F5', backgroundColorTop: '#FFF8F5', backgroundColorBottom: '#FFF8F5' })
-      wx.setNavigationBarColor({ frontColor: '#000000', backgroundColor: '#FFF8F5' })
+      wx.setBackgroundColor({ backgroundColor: '#EAF7FF', backgroundColorTop: '#EAF7FF', backgroundColorBottom: '#EAF7FF' })
+      wx.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: '#167FDB' })
     }
     return next
   }

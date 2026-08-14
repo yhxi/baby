@@ -98,6 +98,11 @@ Page({
   },
 
   onLoad() {
+    const info = wx.getSystemInfoSync()
+    const menu = wx.getMenuButtonBoundingClientRect ? wx.getMenuButtonBoundingClientRect() : null
+    const statusBarHeight = info.statusBarHeight || 20
+    const navHeight = menu ? menu.bottom + 8 : statusBarHeight + 52
+    this.setData({ statusBarHeight, navHeight })
     this.refresh()
   },
 

@@ -1,6 +1,10 @@
 <view class="page {{appDark ? 'dark' : ''}}">
   <view class="paper-dots"></view>
-  <view class="layout">
+  <view class="home-nav" style="padding-top:{{statusBarHeight}}px; height:{{navHeight}}px;">
+    <view class="nav-brand"><view class="nav-bear">ʕ•ᴥ•ʔ</view><view><text>宝宝成长</text><small>每一天，都在闪闪发光</small></view></view>
+    <view class="nav-chip">✦ 成长手帐</view>
+  </view>
+  <view class="layout" style="height:calc(100vh - {{navHeight}}px)">
     <scroll-view class="side-rail" scroll-y>
       <view wx:for="{{workspaceNav}}" wx:key="label" class="rail-item {{item.active ? 'rail-active' : ''}}" data-url="{{item.url}}" bindtap="onWorkspaceTap">
         <view class="rail-icon">{{item.icon}}</view><text>{{item.label}}</text>

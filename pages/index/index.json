@@ -1,4 +1,4 @@
 {
-  "navigationBarTitleText": "宝宝养育计划",
+  "navigationStyle": "custom",
   "enablePullDownRefresh": true
 }
