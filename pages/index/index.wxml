@@ -1,27 +1,17 @@
-<view class="page {{appDark ? 'dark' : ''}}">
-  <view class="home-nav" style="padding-top:{{statusBarHeight}}px; height:{{navHeight}}px;">
-    <view class="nav-brand"><view class="nav-bear" bindtap="onAvatarTap"><image wx:if="{{avatar}}" src="{{avatar}}" mode="aspectFill"/><text wx:else>ʕ•ᴥ•ʔ</text></view><view><text>{{babyName}}</text><small>{{ageText || '新生儿照护中'}} · 点头像换照片</small></view></view>
-    <view class="nav-chip">{{calendarText}}</view>
-  </view>
-  <scroll-view class="workspace newborn-workspace" scroll-y>
-    <view class="now-card">
-      <view class="now-kicker">此刻的照护状态</view><view class="now-main">{{nextActionText}}</view>
-      <view class="now-sub">{{sleepStartedAt ? '再次点击“睡眠”结束计时' : '按宝宝的信号回应，不必机械追赶时间表'}}</view>
-      <view class="now-orbit">✦</view>
+<view class="page space-home {{appDark ? 'dark' : ''}}">
+  <view class="space-nav" style="padding-top:{{statusBarHeight}}px; height:{{navHeight}}px;"><text>✦ 宝宝星球</text><view class="nav-avatar" bindtap="onAvatarTap"><image wx:if="{{avatar}}" src="{{avatar}}" mode="aspectFill"/><text wx:else>👶</text></view></view>
+  <scroll-view class="space-scroll" scroll-y>
+    <view class="star-field"><text class="planet p1">🪐</text><text class="shoot">☄</text><text class="planet p2">●</text><text class="twinkle t1">✦</text><text class="twinkle t2">✦</text></view>
+    <view class="hero-zone">
+      <view class="profile-pod"><text class="pod-name">{{babyName}}</text><view class="pod-age">{{ageText || '今天出生'}}</view><view class="pod-line"></view><view class="pod-metrics"><view><text>↕ 身高</text><b>{{latestHeight}}<small> cm</small></b></view><view><text>⚖ 体重</text><b>{{latestWeight}}<small> kg</small></b></view></view><text class="pod-recent">最近记录：{{lastFeed ? lastFeed.timeText : '暂无'}}</text><text class="pod-star">★</text></view>
+      <image class="space-baby" src="/assets/space-baby-hero.png" mode="aspectFit"/>
     </view>
-    <view class="core-grid">
-      <view wx:for="{{coreActions}}" wx:key="key" class="core-action" style="background:{{item.tint}}" data-key="{{item.key}}" bindtap="onCoreAction"><view class="core-icon">{{item.key === 'sleep' && sleepStartedAt ? '⏱️' : item.icon}}</view><b>{{item.key === 'sleep' && sleepStartedAt ? '结束睡眠' : item.label}}</b><small>{{item.key === 'sleep' && sleepStartedAt ? '正在计时' : item.hint}}</small></view>
-    </view>
-    <view class="today-card">
-      <view class="today-head"><view><text class="today-kicker">TODAY</text><b>今天的照护</b></view><text>{{todayRecords.length}} 条记录</text></view>
-      <view class="today-stats"><view><b>{{todayFeedCount}}</b><text>次喂养</text></view><view><b>{{todayFeedTotal || '--'}}</b><text>ml 奶量</text></view><view><b>{{todayDiaperCount}}</b><text>次尿布</text></view><view><b>{{todaySleepText}}</b><text>睡眠</text></view></view>
-    </view>
-    <view class="timeline-card">
-      <view class="card-title"><text>🗓️</text><b>今天的时光</b><text class="more" bindtap="onAddTap">添加记录 +</text></view>
-      <view wx:if="{{todayTasks.length}}" class="task-list"><view wx:for="{{todayTasks}}" wx:key="id" class="task-item" data-id="{{item.id}}" bindtap="onRecordTap"><text class="task-time">{{item.timeText}}</text><view class="task-dot" style="background:{{item.color}}"></view><view class="task-copy"><b>{{item.typeLabel}}</b><text>{{item.desc}}</text></view><text class="task-arrow">›</text></view></view>
-      <view wx:else class="empty-task"><text>今天还没有记录</text><small>从喂奶、睡眠或尿布开始</small></view>
-    </view>
-    <view class="tool-row"><view bindtap="onFeatureTap" data-url="/pages/album/album">📷 成长相册</view><view bindtap="onFeatureTap" data-url="/pages/planner/planner">✅ 今日待办</view><view bindtap="onFeatureTap" data-url="/pages/hub/hub">🧰 全部工具</view></view>
-    <view class="bottom-space"></view>
+
+    <view class="space-panel action-panel"><view wx:for="{{spaceActions}}" wx:key="key" class="space-action" data-item="{{item}}" bindtap="onSpaceAction"><view class="action-orb {{item.tone}}"><text>{{item.icon}}</text></view><text>{{item.label}}</text></view></view>
+
+    <view class="space-panel records-panel"><view class="panel-title"><text>⭐</text><b>今日记录</b><small>🪐</small><text class="add-record" bindtap="onAddTap">＋</text></view><view wx:if="{{todayTasks.length}}" class="space-timeline"><view wx:for="{{todayTasks}}" wx:key="id" class="space-record" data-id="{{item.id}}" bindtap="onRecordTap"><view class="line-dot" style="background:{{item.color}}"></view><view class="record-orb" style="background:{{item.color}}">{{item.icon}}</view><view class="record-copy"><b style="color:{{item.color}}">{{item.timeText}}</b><text>{{item.typeLabel}} · {{item.desc}}</text></view><text class="record-star">★</text></view></view><view wx:else class="space-empty"><text>星球日志还是空的</text><small>点上方入口，记录宝宝的第一个小瞬间</small></view></view>
+
+    <view class="space-panel album-panel" bindtap="onFeatureTap" data-url="/pages/album/album"><view class="panel-title"><text>📷</text><b>成长相册</b><text class="album-more">›</text></view><view wx:if="{{latestPhotos.length}}" class="album-grid"><image wx:for="{{latestPhotos}}" wx:key="id" src="{{item.localPath || item.path}}" mode="aspectFill"/></view><view wx:else class="album-empty"><text>📷</text><small>上传宝宝照片，保存每一次成长</small></view></view>
+    <view class="space-bottom"></view>
   </scroll-view>
 </view>

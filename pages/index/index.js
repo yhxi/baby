@@ -69,6 +69,14 @@ Page({
       { key: 'diaper', label: '尿布', hint: '一键记录', icon: '👶', tint: '#E9FAF4' },
       { key: 'photo', label: '拍照', hint: '保存瞬间', icon: '📷', tint: '#FFF5D9' }
     ],
+    spaceActions: [
+      { key: 'feed', label: '喂养', icon: '🍼', tone: 'gold' },
+      { key: 'sleep', label: '睡眠', icon: '🌙', tone: 'violet' },
+      { key: 'health', label: '健康', icon: '♥', tone: 'mint', url: '/pages/insights/insights' },
+      { key: 'photo', label: '成长相册', icon: '📷', tone: 'blue', url: '/pages/album/album' },
+      { key: 'vaccine', label: '疫苗接种', icon: '💉', tone: 'violet', url: '/pages/vaccine/vaccine' },
+      { key: 'report', label: '成长报告', icon: '▮▮▮', tone: 'gold', url: '/pages/report/report' }
+    ],
     workspaceNav: [
       { label: '工作台', icon: '🏠', active: true },
       { label: '宝宝状态', icon: '👶', url: '/pages/growth/growth' },
@@ -97,6 +105,7 @@ Page({
     nextActionText: '记录宝宝的每一个小信号',
     sleepStartedAt: 0,
     todayRecords: [],
+    latestPhotos: [],
     hasProfile: false,
     timerReady: false
   },
@@ -208,6 +217,7 @@ this.refresh()
       todaySleepText: formatDuration(sleepMinutes),
       todayRecords: today.map(r => this.decorate(r)),
       todayTasks,
+      latestPhotos: storage.getPhotos().slice(0, 4),
       ageMonths,
       latestWeight: latestGrowth.weight || '--',
       latestHeight: latestGrowth.height || '--',
@@ -300,6 +310,12 @@ this.refresh()
       wx.showToast({ title: `已记录 ${duration} 分钟`, icon: 'success' })
     }
     this.refresh()
+  },
+
+  onSpaceAction(e) {
+    const item = e.currentTarget.dataset.item
+    if (item.url) return wx.navigateTo({ url: item.url })
+    this.onCoreAction({ currentTarget: { dataset: { key: item.key } } })
   },
 
   onWorkspaceTap(e) {
