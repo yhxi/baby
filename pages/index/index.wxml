@@ -4,7 +4,7 @@
     <view class="star-field"><text class="planet p1">🪐</text><text class="shoot">☄</text><text class="planet p2">●</text><text class="twinkle t1">✦</text><text class="twinkle t2">✦</text></view>
     <view class="hero-zone">
       <view class="profile-pod"><text class="pod-name">{{babyName}}</text><view class="pod-age">{{ageText || '今天出生'}}</view><view class="pod-line"></view><view class="pod-metrics"><view><text>↕ 身高</text><b>{{latestHeight}}<small> cm</small></b></view><view><text>⚖ 体重</text><b>{{latestWeight}}<small> kg</small></b></view></view><text class="pod-recent">最近记录：{{lastFeed ? lastFeed.timeText : '暂无'}}</text><text class="pod-star">★</text></view>
-      <image class="space-baby" src="/assets/space-baby-hero.png" mode="aspectFit"/>
+      <image class="space-baby" src="/assets/space-baby-hero-lite.png" mode="aspectFit"/>
     </view>
 
     <view class="space-panel action-panel"><view wx:for="{{spaceActions}}" wx:key="key" class="space-action" data-item="{{item}}" bindtap="onSpaceAction"><view class="action-orb {{item.tone}}"><text>{{item.icon}}</text></view><text>{{item.label}}</text></view></view>
