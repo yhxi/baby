@@ -48,6 +48,10 @@ function todayTitle() {
   return `${d.getMonth() + 1}月${d.getDate()}日 · 星期${days[d.getDay()]}`
 }
 
+function dateValue(d) {
+  return `${d.getFullYear()}-${('0' + (d.getMonth() + 1)).slice(-2)}-${('0' + d.getDate()).slice(-2)}`
+}
+
 Page({
   data: {
     appDark: false,
@@ -106,6 +110,12 @@ Page({
     sleepStartedAt: 0,
     todayRecords: [],
     latestPhotos: [],
+    showSleepSheet: false,
+    sleepActive: false,
+    sleepStartDate: '',
+    sleepStartTime: '',
+    sleepEndDate: '',
+    sleepEndTime: '',
     hasProfile: false,
     timerReady: false
   },
@@ -282,7 +292,8 @@ this.refresh()
       icon: t.icon,
       color: t.color,
       timeText: formatTime(r.time),
-      desc
+      desc,
+      art: r.type === 'feed' || r.type === 'breast' || r.type === 'pump' ? '🍼' : r.type === 'sleep' ? '😴' : r.type === 'diaper' ? '👶' : r.type === 'medicine' ? '💊' : r.type === 'growth' ? '📏' : r.type === 'vaccine' ? '💉' : r.category === 'food' ? '🥣' : '🪐'
     })
   },
 
@@ -301,17 +312,42 @@ this.refresh()
       storage.addRecord({ type: 'diaper', diaperType: 'pee', time: Date.now() })
       wx.showToast({ title: '已记录小便', icon: 'success' }); return this.refresh()
     }
+    this.openSleepSheet()
+  },
+
+  openSleepSheet() {
+    const now = new Date()
     const started = wx.getStorageSync('babySleepStartedAt') || 0
-    if (!started) {
-      wx.setStorageSync('babySleepStartedAt', Date.now())
-      wx.showToast({ title: '已开始睡眠计时', icon: 'success' })
-    } else {
-      const duration = Math.max(1, Math.round((Date.now() - started) / 60000))
-      storage.addRecord({ type: 'sleep', time: started, duration })
-      wx.removeStorageSync('babySleepStartedAt')
-      wx.showToast({ title: `已记录 ${duration} 分钟`, icon: 'success' })
-    }
-    this.refresh()
+    const start = started ? new Date(started) : new Date(now.getTime() - 60 * 60 * 1000)
+    this.setData({ showSleepSheet: true, sleepActive: !!started, sleepStartDate: dateValue(start), sleepStartTime: formatTime(start), sleepEndDate: dateValue(now), sleepEndTime: formatTime(now) })
+  },
+  closeSleepSheet() { this.setData({ showSleepSheet: false }) },
+  onSleepStartDate(e) { this.setData({ sleepStartDate: e.detail.value }) },
+  onSleepStartTime(e) { this.setData({ sleepStartTime: e.detail.value }) },
+  onSleepEndDate(e) { this.setData({ sleepEndDate: e.detail.value }) },
+  onSleepEndTime(e) { this.setData({ sleepEndTime: e.detail.value }) },
+  beginSleep() {
+    wx.setStorageSync('babySleepStartedAt', Date.now())
+    this.setData({ showSleepSheet: false }); this.refresh()
+    wx.showToast({ title: '已开始睡眠计时', icon: 'success' })
+  },
+  finishSleep() {
+    const started = wx.getStorageSync('babySleepStartedAt') || 0
+    if (!started) return wx.showToast({ title: '请使用补录睡眠', icon: 'none' })
+    const duration = Math.max(1, Math.round((Date.now() - started) / 60000))
+    storage.addRecord({ type: 'sleep', time: started, duration })
+    wx.removeStorageSync('babySleepStartedAt')
+    this.setData({ showSleepSheet: false }); this.refresh()
+    wx.showToast({ title: `睡眠已记录 ${formatDuration(duration)}`, icon: 'success' })
+  },
+  saveManualSleep() {
+    const start = new Date(`${this.data.sleepStartDate}T${this.data.sleepStartTime}:00`).getTime()
+    const end = new Date(`${this.data.sleepEndDate}T${this.data.sleepEndTime}:00`).getTime()
+    if (!start || !end || end <= start) return wx.showToast({ title: '结束时间要晚于开始时间', icon: 'none' })
+    const duration = Math.round((end - start) / 60000)
+    storage.addRecord({ type: 'sleep', time: start, duration })
+    this.setData({ showSleepSheet: false }); this.refresh()
+    wx.showToast({ title: `已补录 ${formatDuration(duration)}`, icon: 'success' })
   },
 
   onSpaceAction(e) {
