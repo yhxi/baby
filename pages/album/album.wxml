@@ -1,0 +1,8 @@
+<view class="page">
+  <view class="mast"><view class="bubble b1">✦</view><view class="bubble b2">♥</view><text class="eyebrow">BABY MEMORY BOOK</text><view class="title">成长相册</view><view class="sub">{{countText}} · 每一张都是小小的时光</view></view>
+  <view class="tabs"><view wx:for="{{tabs}}" wx:key="*this" class="tab {{item === tab ? 'active' : ''}}" data-tab="{{item}}" bindtap="onTab">{{item}}</view></view>
+  <view wx:if="{{photos.length}}" class="photo-grid"><view wx:for="{{photos}}" wx:key="id" class="photo-tile" data-photo="{{item}}" bindtap="preview" bindlongpress="deletePhoto"><image wx:if="{{item.localPath}}" src="{{item.localPath}}" mode="aspectFill"/><view wx:else class="cloud-photo">☁️<text>云端照片</text></view><view class="photo-date">{{item.dateText}}</view><view wx:if="{{item.status === 'uploading'}}" class="loading">上传中</view></view></view>
+  <view wx:else class="empty"><view>📷</view><b>第一张成长照片</b><text>把可爱的瞬间收进宝宝专属相册</text></view>
+  <view class="tip">照片会先保存到本机，再加密上传至宝宝的私密云端空间</view>
+  <view class="upload" bindtap="choosePhotos"><text>{{uploading ? '⌛' : '＋'}}</text><small>{{uploading ? '上传中' : '添加照片'}}</small></view>
+</view>

@@ -1,0 +1,3 @@
+const storage=require('../../utils/storage.js')
+function hours(min){return min?`${Math.floor(min/60)}小时${min%60}分`:'--'}
+Page({data:{feed:'--',sleep:'--',growth:'暂无',photos:0,babyName:'宝宝',words:['每一次记录，都是爱的证据','小小的日常，正在汇成成长','今天也被认真爱着']},onShow(){const all=storage.getAll(),week=Date.now()-7*86400000,rs=all.filter(r=>r.time>=week),feed=rs.filter(r=>r.type==='feed').reduce((n,r)=>n+Number(r.amount||0),0),sleep=rs.filter(r=>r.type==='sleep').reduce((n,r)=>n+Number(r.duration||0),0),g=storage.getByType('growth')[0],p=storage.getProfile();this.setData({babyName:(p&&p.name)||'宝宝',feed:feed?feed+' ml':'--',sleep:hours(sleep),growth:g?`${g.height||'--'} cm · ${g.weight||'--'} kg`:'暂无',photos:storage.getPhotos().length})},go(){wx.navigateTo({url:'/pages/album/album'})}})

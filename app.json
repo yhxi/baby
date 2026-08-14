@@ -11,6 +11,10 @@
     "pages/nursery/nursery",
     "pages/log/log",
     "pages/noise/noise"
+    ,"pages/album/album"
+    ,"pages/planner/planner"
+    ,"pages/report/report"
+    ,"pages/hub/hub"
   ],
   "window": {
     "navigationBarTitleText": "宝宝养育计划",

@@ -8,6 +8,7 @@ const META = {
   teeth: { label: '牙齿萌出', icon: '🦷', color: '#00BCD4', placeholder: '如：下中切牙', showValue: false, showAccept: false },
   note: { label: '育儿备忘录', icon: '📝', color: '#9E9E9E', placeholder: '记录宝宝今天的事', showValue: false, showAccept: false },
   milk: { label: '母乳库存', icon: '🥛', color: '#FF9EB5', placeholder: '200', showValue: true, valueLabel: '库存(ml)', showAccept: false }
+  ,todo: { label: '今日待办', icon: '✅', color: '#F06292', placeholder: '如：补充维生素D3', showValue: false, showAccept: false }
 }
 
 function pad(n) { return ('0' + n).slice(-2) }

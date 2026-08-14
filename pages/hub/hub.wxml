@@ -1,0 +1,1 @@
+<view class="page"><view class="hero"><text>ALL IN ONE</text><b>育儿百宝箱</b><view>20 个实用工具，陪宝宝慢慢长大</view></view><view class="grid"><view wx:for="{{items}}" wx:key="*this" class="tool" data-url="{{item[2]}}" bindtap="go"><text>{{item[1]}}</text><b>{{item[0]}}</b><small>打开 ›</small></view></view></view>

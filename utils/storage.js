@@ -17,6 +17,7 @@ const ACTIVE_KEY = 'activeBabyId'
 const FAVS_KEY = 'nurseryFavs'
 const THEME_KEY = 'theme'
 const CLOUD_ENV_KEY = 'cloudEnv'
+const PHOTOS_KEY = 'babyPhotos'
 
 function uid(prefix) {
   return prefix + Date.now().toString(36) + Math.floor(Math.random() * 10000).toString(36)
@@ -225,6 +226,32 @@ function setCloudEnv(env) {
   wx.setStorageSync(CLOUD_ENV_KEY, env || '')
 }
 
+// ---------- 成长相册（本地优先，云端 id 由相册页回填） ----------
+function getPhotos(babyId) {
+  const id = babyId || getActiveBabyId()
+  return (wx.getStorageSync(PHOTOS_KEY) || []).filter(p => p.babyId === id).sort((a, b) => b.createdAt - a.createdAt)
+}
+
+function savePhotos(list) {
+  wx.setStorageSync(PHOTOS_KEY, list)
+}
+
+function addPhoto(photo) {
+  const all = wx.getStorageSync(PHOTOS_KEY) || []
+  const item = Object.assign({ id: uid('p_'), babyId: getActiveBabyId(), createdAt: Date.now(), status: 'local' }, photo)
+  all.push(item); savePhotos(all); return item
+}
+
+function updatePhoto(id, updates) {
+  const all = wx.getStorageSync(PHOTOS_KEY) || []; const index = all.findIndex(p => p.id === id)
+  if (index >= 0) { all[index] = Object.assign({}, all[index], updates); savePhotos(all); return all[index] }
+  return null
+}
+
+function removePhoto(id) {
+  const all = (wx.getStorageSync(PHOTOS_KEY) || []).filter(p => p.id !== id); savePhotos(all); return all
+}
+
 // ---------- 导出完整数据包 ----------
 function exportPackage() {
   return {
@@ -237,6 +264,7 @@ function exportPackage() {
     favs: getFavs(),
     theme: getTheme(),
     cloudEnv: getCloudEnv()
+    ,photos: wx.getStorageSync(PHOTOS_KEY) || []
   }
 }
 
@@ -248,6 +276,7 @@ function importPackage(pkg) {
   if (Array.isArray(pkg.favs)) wx.setStorageSync(FAVS_KEY, pkg.favs)
   if (pkg.theme) wx.setStorageSync(THEME_KEY, pkg.theme)
   if (pkg.cloudEnv) wx.setStorageSync(CLOUD_ENV_KEY, pkg.cloudEnv)
+  if (Array.isArray(pkg.photos)) wx.setStorageSync(PHOTOS_KEY, pkg.photos)
   return true
 }
 
@@ -295,6 +324,11 @@ module.exports = {
   // 云
   getCloudEnv,
   setCloudEnv,
+  // 相册
+  getPhotos,
+  addPhoto,
+  updatePhoto,
+  removePhoto,
   // 备份
   exportPackage,
   importPackage

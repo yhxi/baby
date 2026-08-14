@@ -75,7 +75,8 @@ Page({
       { label: '宝宝状态', icon: '👶', url: '/pages/growth/growth' },
       { label: '医疗', icon: '🏥', url: '/pages/vaccine/vaccine' },
       { label: '阅读', icon: '📖', url: '/pages/nursery/nursery' },
-      { label: '成长', icon: '🌱', url: '/pages/growthChart/growthChart' }
+      { label: '成长', icon: '🌱', url: '/pages/growthChart/growthChart' },
+      { label: '百宝箱', icon: '🧰', url: '/pages/hub/hub' }
     ],
     featureMenus: [
       { label: '喂奶', icon: '🍼', tint: '#FFE8F0', type: 'feed' },
@@ -85,7 +86,7 @@ Page({
       { label: '儿歌', icon: '🎵', tint: '#E2F2FF', url: '/pages/nursery/nursery' },
       { label: '发育', icon: '🧸', tint: '#E7FAF1', url: '/pages/log/log?category=milestone' },
       { label: '疫苗', icon: '💉', tint: '#FFE7EE', url: '/pages/vaccine/vaccine' },
-      { label: '生长', icon: '📏', tint: '#FFF8CA', url: '/pages/growth/growth' }
+      { label: '相册', icon: '📷', tint: '#FFF8CA', url: '/pages/album/album' }
     ],
     calendarText: todayTitle(),
     ageMonths: '--',

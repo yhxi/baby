@@ -53,4 +53,29 @@ function sync() {
   })
 }
 
-module.exports = { sync }
+function listPhotos(babyId) {
+  return login().then(token => request('/babies/' + encodeURIComponent(babyId) + '/photos', 'GET', null, token))
+}
+
+function uploadPhoto(babyId, filePath, mimeType) {
+  return login().then(token => {
+    const data = wx.getFileSystemManager().readFileSync(filePath, 'base64')
+    return request('/babies/' + encodeURIComponent(babyId) + '/photos', 'POST', {
+      data,
+      mimeType: mimeType || 'image/jpeg'
+    }, token)
+  })
+}
+
+function downloadPhoto(photoId) {
+  return login().then(token => new Promise((resolve, reject) => {
+    wx.downloadFile({
+      url: API + '/photos/' + encodeURIComponent(photoId),
+      header: { Authorization: 'Bearer ' + token },
+      success: res => res.statusCode === 200 ? resolve(res.tempFilePath) : reject(new Error('图片下载失败')),
+      fail: reject
+    })
+  }))
+}
+
+module.exports = { sync, listPhotos, uploadPhoto, downloadPhoto }
