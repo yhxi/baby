@@ -134,7 +134,8 @@ http.createServer(async (req, res) => {
   if (photoListMatch && req.method === 'POST') {
     const babyId = decodeURIComponent(photoListMatch[1]); if (!ownsBaby(userId, babyId)) return send(res, 403, { error: 'Forbidden' })
     try {
-      const body = await parseJson(req, 3 * 1024 * 1024)
+      // 图片在转成 Base64 后体积约增加三分之一，预留给压缩后的手机照片。
+      const body = await parseJson(req, 10 * 1024 * 1024)
       if (!/^image\/(jpeg|png|webp)$/.test(body.mimeType || '') || typeof body.data !== 'string') return send(res, 400, { error: 'Only JPEG, PNG or WebP photos are allowed' })
       const buffer = Buffer.from(body.data, 'base64')
       if (!buffer.length || buffer.length > 2 * 1024 * 1024) return send(res, 413, { error: 'Photo must be under 2 MB after compression' })

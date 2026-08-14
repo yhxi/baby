@@ -16,19 +16,31 @@ Page({
   onTab(e) { this.setData({ tab: e.currentTarget.dataset.tab }) },
   choosePhotos() {
     if (this.data.uploading) return
-    wx.chooseMedia({ count: 9, mediaType: ['image'], sizeType: ['compressed'], success: res => this.saveSelected(res.tempFiles) })
+    wx.chooseImage({ count: 9, sizeType: ['compressed'], sourceType: ['album', 'camera'], success: res => this.saveSelected(res.tempFilePaths) })
   },
-  saveSelected(files) {
+  async saveSelected(files) {
     const babyId = storage.getActiveBabyId()
-    const jobs = files.map(file => {
-      let local = file.tempFilePath
-      try { wx.compressImage({ src: local, quality: 70, success: r => { local = r.tempFilePath } }) } catch (_) {}
-      const saved = wx.saveFileSync(local)
-      const photo = storage.addPhoto({ localPath: saved, status: 'uploading' })
-      return cloud.uploadPhoto(babyId, saved, 'image/jpeg').then(r => storage.updatePhoto(photo.id, { remoteId: r.photo.id, status: 'synced' })).catch(() => storage.updatePhoto(photo.id, { status: 'local' }))
-    })
-    this.setData({ uploading: true }); this.refresh()
-    Promise.all(jobs).then(() => { this.setData({ uploading: false }); this.refresh(); wx.showToast({ title: '照片已保存', icon: 'success' }) })
+    this.setData({ uploading: true })
+    try {
+      for (const source of files) {
+        const compressed = await new Promise((resolve, reject) => wx.compressImage({ src: source, quality: 55, success: r => resolve(r.tempFilePath), fail: reject }))
+        const saved = wx.saveFileSync(compressed)
+        const photo = storage.addPhoto({ localPath: saved, status: 'uploading' })
+        this.refresh()
+        try {
+          const result = await cloud.uploadPhoto(babyId, saved, 'image/jpeg')
+          storage.updatePhoto(photo.id, { remoteId: result.photo.id, status: 'synced' })
+        } catch (_) {
+          // 私密云端临时不可用时，照片仍然保留在本机相册。
+          storage.updatePhoto(photo.id, { status: 'local' })
+        }
+      }
+      wx.showToast({ title: '照片已保存', icon: 'success' })
+    } catch (_) {
+      wx.showToast({ title: '照片处理失败，请换一张重试', icon: 'none' })
+    } finally {
+      this.setData({ uploading: false }); this.refresh()
+    }
   },
   pullCloud() {
     const babyId = storage.getActiveBabyId()
