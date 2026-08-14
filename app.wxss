@@ -108,6 +108,7 @@ page { --primary:#7DB9FF; --primary-light:rgba(80,130,255,.20); --secondary:#FFD
 .space-home .profile-pod { top: 40rpx !important; width: 334rpx !important; min-height: 262rpx !important; }
 .space-home .star-field { height: 112rpx !important; }
 .space-home .action-panel { margin-top: 2rpx !important; }
-.space-home .space-scroll > view:first-child > view:nth-child(2) > text:last-child { display: none !important; }
-.space-home .records-panel { padding-bottom: 230rpx !important; }
-.space-home text[style*="margin-top:15rpx"] { display: none !important; }
+.space-home .space-scroll { height: calc(100vh - 126rpx) !important; padding: 0 22rpx 18rpx !important; }
+.space-home .records-panel { padding-bottom: 20rpx !important; }
+.space-home .album-panel { margin-bottom: 8rpx !important; }
+.space-home .space-bottom { height: 0 !important; }
