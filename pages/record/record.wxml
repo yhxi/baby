@@ -33,6 +33,12 @@
       <input class="form-input" type="digit" placeholder="0" value="{{amount}}" bindinput="onAmountInput" />
       <text class="form-unit">ml</text>
     </view>
+    <view wx:if="{{type === 'feed' || type === 'pump'}}" class="amount-section">
+      <view class="amount-caption">快捷选择 <text>当前 {{amount || 150}} ml</text></view>
+      <view class="amount-grid">
+        <view wx:for="{{amountOptions}}" wx:key="*this" class="amount-chip {{item == amount ? 'active' : ''}}" data-amount="{{item}}" bindtap="onAmountPick">{{item}}<small>ml</small></view>
+      </view>
+    </view>
     <view class="form-row" wx:if="{{type === 'medicine'}}">
       <text class="form-label">名称</text>
       <input class="form-input" placeholder="如：维生素D" value="{{medicineName}}" bindinput="onMedicineInput" />

@@ -20,7 +20,8 @@ Page({
     ],
     date: '',
     time: '',
-    amount: '',
+    amount: '150',
+    amountOptions: [30, 60, 90, 120, 150, 180, 210, 240],
     duration: '',
     durationHours: '0',
     durationMinutes: '0',
@@ -76,7 +77,8 @@ const types = this.data.types
     const type = e.currentTarget.dataset.type
     this.setData({
       type,
-      typeConfig: storage.RECORD_TYPES[type] || {}
+      typeConfig: storage.RECORD_TYPES[type] || {},
+      amount: (type === 'feed' || type === 'pump') && !this.data.amount ? '150' : this.data.amount
     })
   },
 
@@ -90,6 +92,10 @@ const types = this.data.types
 
   onAmountInput(e) {
     this.setData({ amount: e.detail.value })
+  },
+
+  onAmountPick(e) {
+    this.setData({ amount: String(e.currentTarget.dataset.amount) })
   },
 
   onDurationInput(e) {

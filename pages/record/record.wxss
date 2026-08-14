@@ -27,8 +27,8 @@
 }
 
 .type-item.active {
-  border-color: #FF7B7B;
-  background: #FFF0F0;
+  border-color: #167FDB;
+  background: #E6F4FF;
 }
 
 .type-icon {
@@ -118,7 +118,7 @@
 }
 
 .seg-item.active {
-  background: #FF7B7B;
+  background: #167FDB;
   color: #fff;
 }
 
@@ -131,7 +131,7 @@
 
 .btn-save {
   flex: 1;
-  background: linear-gradient(135deg, #FF7B7B 0%, #FF9EB5 100%);
+  background: linear-gradient(135deg, #31B5FF 0%, #167FDB 100%);
   color: #fff;
   font-size: 32rpx;
   font-weight: 600;
@@ -142,12 +142,20 @@
 .btn-delete {
   width: 200rpx;
   background: var(--card);
-  color: #FF7B7B;
+  color: #167FDB;
   font-size: 30rpx;
   border-radius: 50rpx;
-  border: 2rpx solid #FF7B7B;
+  border: 2rpx solid #167FDB;
 }
 
 button::after {
   border: none;
 }
+
+.amount-section { padding-top: 22rpx; }
+.amount-caption { color: var(--text-secondary); font-size: 23rpx; }
+.amount-caption text { float: right; color: #167FDB; font-weight: 600; }
+.amount-grid { display: flex; flex-wrap: wrap; gap: 14rpx; margin-top: 18rpx; }
+.amount-chip { width: calc((100% - 42rpx) / 4); box-sizing: border-box; padding: 16rpx 0; border-radius: 16rpx; background: #F2FAFF; border: 2rpx solid #D6ECFB; color: #427EA9; text-align: center; font-size: 27rpx; font-weight: 600; }
+.amount-chip small { margin-left: 3rpx; font-size: 17rpx; font-weight: 400; }
+.amount-chip.active { background: #167FDB; border-color: #167FDB; color: #fff; box-shadow: 0 6rpx 14rpx rgba(22,127,219,.24); }
