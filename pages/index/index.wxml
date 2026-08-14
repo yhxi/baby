@@ -1,15 +1,10 @@
 <view class="page {{appDark ? 'dark' : ''}}">
   <view class="paper-dots"></view>
   <view class="home-nav" style="padding-top:{{statusBarHeight}}px; height:{{navHeight}}px;">
-    <view class="nav-brand"><view class="nav-bear">ʕ•ᴥ•ʔ</view><view><text>宝宝成长</text><small>每一天，都在闪闪发光</small></view></view>
+    <view class="nav-brand"><view class="nav-bear" bindtap="onAvatarTap"><image wx:if="{{avatar}}" src="{{avatar}}" mode="aspectFill"/><text wx:else>ʕ•ᴥ•ʔ</text></view><view><text>宝宝成长</text><small>每一天，都在闪闪发光</small></view></view>
     <view class="nav-chip">✦ 成长手帐</view>
   </view>
   <view class="layout">
-    <scroll-view class="side-rail" scroll-y>
-      <view wx:for="{{workspaceNav}}" wx:key="label" class="rail-item {{item.active ? 'rail-active' : ''}}" data-url="{{item.url}}" bindtap="onWorkspaceTap">
-        <view class="rail-icon">{{item.icon}}</view><text>{{item.label}}</text>
-      </view>
-    </scroll-view>
     <scroll-view class="workspace" scroll-y>
       <view class="topline"><view><view class="kicker">宝宝成长手帐</view><view class="page-title">工作台</view></view><view class="date-pill">{{calendarText}}</view></view>
       <view class="hero-card">

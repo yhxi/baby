@@ -52,6 +52,7 @@ Page({
   data: {
     appDark: false,
     babyName: '宝宝',
+    avatar: '',
     babies: [],
     activeBabyId: '',
     ageText: '',
@@ -202,6 +203,7 @@ this.refresh()
       ageMonths,
       latestWeight: latestGrowth.weight || '--',
       latestHeight: latestGrowth.height || '--',
+      avatar: (profile && profile.avatar) || '',
       babies: storage.getProfiles().map(p => ({ id: p.id, name: p.name || '宝宝' })),
       activeBabyId: storage.getActiveBabyId()
     })
@@ -220,6 +222,24 @@ this.refresh()
 
   onManageBaby() {
     wx.navigateTo({ url: '/pages/family/family' })
+  },
+
+  onAvatarTap() {
+    wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      sizeType: ['compressed'],
+      success: res => {
+        try {
+          const savedPath = wx.saveFileSync(res.tempFiles[0].tempFilePath)
+          const profile = storage.getProfile()
+          storage.updateProfile(storage.getActiveBabyId(), { avatar: savedPath })
+          if (profile) getApp().globalData.baby = Object.assign({}, profile, { avatar: savedPath })
+          this.setData({ avatar: savedPath })
+          wx.showToast({ title: '头像已更新', icon: 'success' })
+        } catch (_) { wx.showToast({ title: '头像保存失败', icon: 'none' }) }
+      }
+    })
   },
 
   decorate(r) {

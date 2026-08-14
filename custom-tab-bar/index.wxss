@@ -1,1 +1,8 @@
-.tab-shell{background:transparent;padding:0 18rpx 18rpx;box-sizing:border-box}.tab-inner{height:108rpx;border-radius:38rpx;background:rgba(255,255,255,.96);display:flex;align-items:center;box-shadow:0 10rpx 30rpx rgba(17,111,197,.22);border:2rpx solid rgba(199,232,255,.9)}.tab{position:relative;flex:1;text-align:center;color:#75a2ca;font-size:19rpx;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%}.tab-icon{font-size:29rpx;line-height:31rpx}.selected{color:#1078d9}.selected .tab-icon{color:#fff;background:linear-gradient(145deg,#44b7ff,#0874d8);width:54rpx;height:54rpx;border-radius:20rpx;display:flex;align-items:center;justify-content:center;margin-top:-29rpx;box-shadow:0 8rpx 18rpx rgba(11,107,203,.35)}.active-dot{width:8rpx;height:8rpx;background:#ffcf32;border-radius:50%;position:absolute;bottom:11rpx}
+.tab-shell { background: #f0f9ff; padding: 10rpx 18rpx 18rpx; box-sizing: border-box; }
+.tab-inner { height: 98rpx; border-radius: 30rpx; background: #ffffff; display: flex; align-items: center; box-shadow: 0 6rpx 20rpx rgba(17,111,197,.14); border: 2rpx solid #d6efff; }
+.tab { position: relative; flex: 1; height: 100%; text-align: center; color: #78a5ca; font-size: 18rpx; font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: transform .12s ease, opacity .12s ease; }
+.tab-icon { width: 42rpx; height: 42rpx; line-height: 42rpx; margin-bottom: 2rpx; border-radius: 14rpx; color: #6b9dc7; font-size: 27rpx; }
+.selected { color: #1178d6; }
+.selected .tab-icon { color: #ffffff; background: linear-gradient(145deg,#4abaff,#0874d8); box-shadow: 0 5rpx 12rpx rgba(11,107,203,.24); }
+.active-dot { width: 7rpx; height: 7rpx; background: #ffce2f; border-radius: 50%; position: absolute; bottom: 8rpx; }
+.tab-pressed { transform: scale(.91); opacity: .72; }

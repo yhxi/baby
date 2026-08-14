@@ -2,18 +2,19 @@
 .paper-dots { position: fixed; inset: 0; background-image: radial-gradient(#c7eaff 2rpx, transparent 3rpx); background-size: 30rpx 30rpx; opacity: .6; pointer-events: none; }
 .home-nav { position: relative; z-index: 10; box-sizing: border-box; min-height: 110rpx; display: flex; align-items: center; padding-left: 26rpx; padding-right: 190rpx; background: #d9f2ff; border-bottom: 2rpx solid #b9e3fb; }
 .nav-brand { display: flex; align-items: center; }
-.nav-bear { width: 56rpx; height: 56rpx; line-height: 56rpx; text-align: center; border-radius: 18rpx; background: #1685e4; color: #fff; font-size: 17rpx; box-shadow: 0 6rpx 12rpx rgba(21, 120, 210, .28); }
+.nav-bear { overflow: hidden; width: 64rpx; height: 64rpx; line-height: 64rpx; text-align: center; border-radius: 22rpx; background: #1685e4; color: #fff; font-size: 17rpx; box-shadow: 0 6rpx 12rpx rgba(21, 120, 210, .28); }
+.nav-bear image { width: 100%; height: 100%; display: block; }
 .nav-brand view:last-child { margin-left: 12rpx; }
 .nav-brand text { display: block; color: #116dca; font-size: 30rpx; font-weight: bold; }
 .nav-brand small { display: block; margin-top: 3rpx; color: #6a9fc8; font-size: 17rpx; white-space: nowrap; }
 .nav-chip { position: absolute; right: 24rpx; bottom: 16rpx; padding: 9rpx 15rpx; border-radius: 28rpx; background: #fff; color: #287dc5; font-size: 18rpx; }
-.layout { position: relative; z-index: 1; display: flex; height: calc(100vh - 130rpx); }
-.side-rail { flex: 0 0 116rpx; height: 100%; background: rgba(255,255,255,.7); }
+.layout { position: relative; z-index: 1; display: block; height: calc(100vh - 130rpx); }
+.side-rail { display: none; }
 .rail-item { display: block; margin: 18rpx 8rpx; text-align: center; color: #4c8fc5; font-size: 18rpx; font-weight: bold; }
 .rail-icon { width: 72rpx; height: 72rpx; line-height: 72rpx; margin: 0 auto 6rpx; border-radius: 24rpx; background: #fff; font-size: 36rpx; box-shadow: 0 4rpx 12rpx rgba(39,131,199,.12); }
 .rail-active { color: #116fd0; }
 .rail-active .rail-icon { background: #bfe9ff; }
-.workspace { flex: 1; height: 100%; padding: 24rpx 18rpx 170rpx; box-sizing: border-box; }
+.workspace { width: 100%; height: 100%; padding: 24rpx 28rpx 170rpx; box-sizing: border-box; }
 .topline { display: flex; justify-content: space-between; align-items: center; margin: 0 4rpx 20rpx; }
 .kicker { color: #5c99cb; font-size: 18rpx; letter-spacing: 2rpx; }
 .page-title { color: #1177d4; font-size: 48rpx; line-height: 1.15; font-weight: bold; }
