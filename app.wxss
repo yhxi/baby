@@ -108,3 +108,4 @@ page { --primary:#7DB9FF; --primary-light:rgba(80,130,255,.20); --secondary:#FFD
 .space-home .profile-pod { top: 40rpx !important; width: 334rpx !important; min-height: 262rpx !important; }
 .space-home .star-field { height: 112rpx !important; }
 .space-home .action-panel { margin-top: 2rpx !important; }
+.space-home .space-scroll > view:first-child > view:nth-child(2) > text:last-child { display: none !important; }
