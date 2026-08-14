@@ -63,6 +63,7 @@ Page({
     daysText: '',
     lastFeed: null,
     lastFeedAgoText: '',
+    lastSleepAgoText: '暂无睡眠记录',
     todaySleepMinutes: 0,
     todaySleepText: '',
     sleepStatusText: '',
@@ -169,18 +170,27 @@ this.refresh()
     }
     const sleeps = storage.getAll().filter(r => r.type === 'sleep' && r.time).sort((a, b) => a.time - b.time)
     let sleepStatusText = '暂无'
+    let lastSleepAgoText = '暂无睡眠记录'
     let isSleeping = false
+    const activeSleepStartedAt = wx.getStorageSync('babySleepStartedAt') || 0
+    if (activeSleepStartedAt) {
+      isSleeping = true
+      sleepStatusText = '睡眠中 · 已睡 ' + agoText(now - activeSleepStartedAt)
+      lastSleepAgoText = '正在睡眠 · 已睡 ' + agoText(now - activeSleepStartedAt)
+    }
     const last = sleeps[sleeps.length - 1]
-    if (last) {
+    if (last && !activeSleepStartedAt) {
       const end = last.time + (last.duration || 0) * 60 * 1000
       if (end > now) {
         isSleeping = true
         sleepStatusText = '睡眠中 · 已睡 ' + agoText(now - last.time)
+        lastSleepAgoText = '正在睡眠 · 已睡 ' + agoText(now - last.time)
       } else {
         sleepStatusText = '清醒 · 已醒 ' + agoText(now - end)
+        lastSleepAgoText = '距上次醒来 ' + agoText(now - end)
       }
     }
-    this.setData({ lastFeedAgoText, sleepStatusText, isSleeping })
+    this.setData({ lastFeedAgoText, sleepStatusText, lastSleepAgoText, isSleeping })
   },
 
   onPullDownRefresh() {
