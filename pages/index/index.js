@@ -79,7 +79,7 @@ Page({
       { key: 'health', label: '健康', icon: '♥', tone: 'mint', url: '/pages/insights/insights' },
       { key: 'photo', label: '成长相册', icon: '📷', tone: 'blue', url: '/pages/album/album' },
       { key: 'vaccine', label: '疫苗接种', icon: '💉', tone: 'violet', url: '/pages/vaccine/vaccine' },
-      { key: 'report', label: '成长报告', icon: '▮▮▮', tone: 'gold', url: '/pages/report/report' }
+      { key: 'hub', label: '百宝箱', icon: '🧰', tone: 'gold', url: '/pages/hub/hub' }
     ],
     workspaceNav: [
       { label: '工作台', icon: '🏠', active: true },
