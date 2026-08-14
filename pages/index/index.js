@@ -42,6 +42,12 @@ function agoText(ms) {
   return `${m}分钟`
 }
 
+function todayTitle() {
+  const d = new Date()
+  const days = ['日', '一', '二', '三', '四', '五', '六']
+  return `${d.getMonth() + 1}月${d.getDate()}日 · 星期${days[d.getDay()]}`
+}
+
 Page({
   data: {
     appDark: false,
@@ -64,6 +70,27 @@ Page({
       { type: 'diaper', label: '尿布', icon: '👶', color: '#7EDDD6' },
       { type: 'medicine', label: '补剂药品', icon: '💊', color: '#B8A1E6' }
     ],
+    workspaceNav: [
+      { label: '工作台', icon: '🏠', active: true },
+      { label: '宝宝状态', icon: '👶', url: '/pages/growth/growth' },
+      { label: '医疗', icon: '🏥', url: '/pages/vaccine/vaccine' },
+      { label: '阅读', icon: '📖', url: '/pages/nursery/nursery' },
+      { label: '成长', icon: '🌱', url: '/pages/growthChart/growthChart' }
+    ],
+    featureMenus: [
+      { label: '喂奶', icon: '🍼', tint: '#FFE8F0', type: 'feed' },
+      { label: '睡眠', icon: '😴', tint: '#E8F7E9', type: 'sleep' },
+      { label: '辅食', icon: '🥣', tint: '#FFF0D7', url: '/pages/log/log?category=food' },
+      { label: '日记', icon: '📝', tint: '#EEE7FF', url: '/pages/log/log?category=note' },
+      { label: '儿歌', icon: '🎵', tint: '#E2F2FF', url: '/pages/nursery/nursery' },
+      { label: '发育', icon: '🧸', tint: '#E7FAF1', url: '/pages/log/log?category=milestone' },
+      { label: '疫苗', icon: '💉', tint: '#FFE7EE', url: '/pages/vaccine/vaccine' },
+      { label: '生长', icon: '📏', tint: '#FFF8CA', url: '/pages/growth/growth' }
+    ],
+    calendarText: todayTitle(),
+    ageMonths: '--',
+    latestWeight: '--',
+    latestHeight: '--',
     todayRecords: [],
     hasProfile: false,
     timerReady: false
@@ -152,6 +179,10 @@ this.refresh()
       sleepMinutes += r.duration || 0
     })
 
+    const growth = storage.getByType('growth')
+    const latestGrowth = growth[0] || {}
+    const ageMonths = birthDate ? Math.max(0, Math.floor(days / 30)) : '--'
+    const todayTasks = today.slice(0, 4).map(r => this.decorate(r))
     this.setData({
       hasProfile,
       babyName,
@@ -161,6 +192,10 @@ this.refresh()
       todaySleepMinutes: sleepMinutes,
       todaySleepText: formatDuration(sleepMinutes),
       todayRecords: today.map(r => this.decorate(r)),
+      todayTasks,
+      ageMonths,
+      latestWeight: latestGrowth.weight || '--',
+      latestHeight: latestGrowth.height || '--',
       babies: storage.getProfiles().map(p => ({ id: p.id, name: p.name || '宝宝' })),
       activeBabyId: storage.getActiveBabyId()
     })
@@ -205,6 +240,17 @@ this.refresh()
     wx.navigateTo({
       url: `/pages/record/record?type=${type}`
     })
+  },
+
+  onWorkspaceTap(e) {
+    const url = e.currentTarget.dataset.url
+    if (url) wx.navigateTo({ url })
+  },
+
+  onFeatureTap(e) {
+    const { type, url } = e.currentTarget.dataset
+    if (type) return this.onQuickTap({ currentTarget: { dataset: { type } } })
+    if (url) wx.navigateTo({ url })
   },
 
   onRecordTap(e) {

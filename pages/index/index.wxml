@@ -1,77 +1,40 @@
 <view class="page {{appDark ? 'dark' : ''}}">
-  <!-- 顶部宝宝信息 -->
-  <view class="header">
-    <view class="avatar">{{babyName[0] || '宝'}}</view>
-    <view class="header-info">
-      <view class="baby-name">{{babyName}}</view>
-      <view class="baby-age">{{ageText}}</view>
-      <view class="baby-days">{{daysText}}</view>
-    </view>
-    <view class="header-badge">👶</view>
-  </view>
-
-  <!-- 多宝宝切换 -->
-  <view class="baby-bar">
-    <scroll-view scroll-x class="baby-scroll">
-      <view class="baby-chip {{item.id === activeBabyId ? 'active' : ''}}" wx:for="{{babies}}" wx:key="id" data-id="{{item.id}}" bindtap="onBabyTap">{{item.name}}</view>
-      <view class="baby-chip add" bindtap="onManageBaby">＋</view>
+  <view class="paper-dots"></view>
+  <view class="layout">
+    <scroll-view class="side-rail" scroll-y>
+      <view wx:for="{{workspaceNav}}" wx:key="label" class="rail-item {{item.active ? 'rail-active' : ''}}" data-url="{{item.url}}" bindtap="onWorkspaceTap">
+        <view class="rail-icon">{{item.icon}}</view><text>{{item.label}}</text>
+      </view>
+    </scroll-view>
+    <scroll-view class="workspace" scroll-y>
+      <view class="topline"><view><view class="kicker">宝宝成长手帐</view><view class="page-title">工作台</view></view><view class="date-pill">{{calendarText}}</view></view>
+      <view class="hero-card">
+        <view class="sparkle s1">✦</view><view class="sparkle s2">✧</view><view class="bear">ʕ•ᴥ•ʔ</view>
+        <view class="hero-caption">今天，{{babyName}}已经</view><view class="hero-age">{{ageText || '慢慢长大'}} <text>✦</text></view>
+        <view class="growth-stats">
+          <view class="stat"><text>月龄</text><b>{{ageMonths}}</b><small>个月</small></view>
+          <view class="stat"><text>体重</text><b>{{latestWeight}}</b><small>kg</small></view>
+          <view class="stat"><text>身高</text><b>{{latestHeight}}</b><small>cm</small></view>
+        </view>
+      </view>
+      <view class="section-card shortcut-card">
+        <view class="section-heading"><text class="heading-sun">✹</text><text>快捷入口</text><text class="heading-note">记录此刻</text></view>
+        <view class="feature-grid">
+          <view wx:for="{{featureMenus}}" wx:key="label" class="feature" style="background: {{item.tint}}" data-type="{{item.type}}" data-url="{{item.url}}" bindtap="onFeatureTap"><view class="feature-icon">{{item.icon}}</view><text>{{item.label}}</text></view>
+        </view>
+      </view>
+      <view class="status-row">
+        <view class="mini-status"><text class="mini-label">上次喂养</text><view wx:if="{{lastFeed}}" class="mini-main">{{lastFeed.icon}} {{lastFeed.timeText}}</view><view wx:else class="mini-main">🍼 暂无</view><text class="mini-sub">{{lastFeed ? lastFeedAgoText : '点击喂奶开始记录'}}</text></view>
+        <view class="mini-status blue"><text class="mini-label">今日睡眠</text><view class="mini-main">😴 {{todaySleepText}}</view><text class="mini-sub">{{sleepStatusText}}</text></view>
+      </view>
+      <view class="section-card timeline-card">
+        <view class="section-heading"><text>🗓️</text><text>今天的时光</text><text class="heading-note">{{todayTasks.length ? '共 ' + todayTasks.length + ' 条' : '从第一条开始'}}</text></view>
+        <view wx:if="{{todayTasks.length}}" class="task-list">
+          <view wx:for="{{todayTasks}}" wx:key="id" class="task-item" data-id="{{item.id}}" bindtap="onRecordTap"><text class="task-time">{{item.timeText}}</text><view class="task-dot" style="background:{{item.color}}"></view><view class="task-copy"><b>{{item.typeLabel}}</b><text>{{item.desc}}</text></view><text class="task-arrow">›</text></view>
+        </view>
+        <view wx:else class="empty-task"><text>今天还没有记录</text><text>点右下角，留下宝宝的第一段小日常</text></view>
+      </view><view class="bottom-space"></view>
     </scroll-view>
   </view>
-
-  <!-- 概览卡片 -->
-  <view class="overview">
-    <view class="overview-card">
-      <view class="overview-label">上次喂养</view>
-      <block wx:if="{{lastFeed}}">
-        <view class="overview-value">{{lastFeed.icon}} {{lastFeed.timeText}}</view>
-        <view class="overview-sub">{{lastFeed.desc}}</view>
-        <view class="overview-ago">{{lastFeedAgoText}}</view>
-      </block>
-      <view wx:else class="overview-empty">暂无记录</view>
-    </view>
-    <view class="overview-card">
-      <view class="overview-label">今日睡眠</view>
-      <view class="overview-value">😴 {{todaySleepText}}</view>
-      <view class="overview-sub">{{todaySleepMinutes}} 分钟</view>
-      <view class="overview-ago {{isSleeping ? 'sleeping' : ''}}">{{sleepStatusText}}</view>
-    </view>
-  </view>
-
-  <!-- 快速记录 -->
-  <view class="card quick-card">
-    <view class="section-title">快速记录</view>
-    <view class="quick-grid">
-      <view class="quick-item" wx:for="{{quickActions}}" wx:key="type" data-type="{{item.type}}" bindtap="onQuickTap" style="background:{{item.color}}1A;">
-            <view class="quick-icon" style="background:{{item.color}};">{{item.icon}}</view>
-            <view class="quick-label">{{item.label}}</view>
-          </view>
-    </view>
-  </view>
-
-  <!-- 今日记录 -->
-  <view class="card record-card">
-    <view class="section-title">今天的记录</view>
-    <view class="section-subtitle">{{todayRecords.length ? '共 ' + todayRecords.length + ' 条' : '还没有记录，点击下方按钮添加'}}</view>
-
-    <view wx:if="{{todayRecords.length === 0}}" class="empty-hint">
-      <view class="empty-emoji">📝</view>
-      <view class="empty-text">记录宝宝的每一次成长</view>
-    </view>
-
-    <view wx:for="{{todayRecords}}" wx:key="id" class="record-item" data-id="{{item.id}}" bindtap="onRecordTap">
-      <view class="record-icon" style="background:{{item.color}};">{{item.icon}}</view>
-      <view class="record-body">
-        <view class="record-top">
-          <text class="record-type">{{item.typeLabel}}</text>
-          <text class="record-time">{{item.timeText}}</text>
-        </view>
-        <view class="record-desc">{{item.desc}}</view>
-      </view>
-    </view>
-  </view>
-
-  <view style="height: 40rpx;"></view>
-
-  <!-- 悬浮添加按钮 -->
-  <view class="fab" bindtap="onAddTap">＋</view>
+  <view class="fab" bindtap="onAddTap"><text>＋</text><small>记录</small></view>
 </view>
