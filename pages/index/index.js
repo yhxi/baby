@@ -79,14 +79,14 @@ Page({
       { label: '百宝箱', icon: '🧰', url: '/pages/hub/hub' }
     ],
     featureMenus: [
-      { label: '喂奶', icon: '🍼', tint: '#FFE8F0', type: 'feed' },
-      { label: '睡眠', icon: '😴', tint: '#E8F7E9', type: 'sleep' },
-      { label: '辅食', icon: '🥣', tint: '#FFF0D7', url: '/pages/log/log?category=food' },
-      { label: '日记', icon: '📝', tint: '#EEE7FF', url: '/pages/log/log?category=note' },
-      { label: '儿歌', icon: '🎵', tint: '#E2F2FF', url: '/pages/nursery/nursery' },
-      { label: '发育', icon: '🧸', tint: '#E7FAF1', url: '/pages/log/log?category=milestone' },
-      { label: '疫苗', icon: '💉', tint: '#FFE7EE', url: '/pages/vaccine/vaccine' },
-      { label: '相册', icon: '📷', tint: '#FFF8CA', url: '/pages/album/album' }
+      { label: '喂奶', icon: '🍼', tint: '#E8F6FF', type: 'feed' },
+      { label: '睡眠', icon: '😴', tint: '#EEF0FF', type: 'sleep' },
+      { label: '辅食', icon: '🥣', tint: '#E7FBF1', url: '/pages/log/log?category=food' },
+      { label: '日记', icon: '📝', tint: '#FFF5D9', url: '/pages/log/log?category=note' },
+      { label: '儿歌', icon: '🎵', tint: '#E7F2FF', url: '/pages/nursery/nursery' },
+      { label: '发育', icon: '🧸', tint: '#ECF8FF', url: '/pages/log/log?category=milestone' },
+      { label: '疫苗', icon: '💉', tint: '#E9F5FF', url: '/pages/vaccine/vaccine' },
+      { label: '相册', icon: '📷', tint: '#FFF4DC', url: '/pages/album/album' }
     ],
     calendarText: todayTitle(),
     ageMonths: '--',
