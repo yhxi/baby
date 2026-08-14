@@ -103,7 +103,8 @@ page { --primary:#7DB9FF; --primary-light:rgba(80,130,255,.20); --secondary:#FFD
 .card { border:1rpx solid var(--border); border-radius:28rpx; box-shadow:inset 0 1rpx rgba(255,255,255,.12),0 14rpx 30rpx rgba(0,0,38,.26); }
 
 /* 首页主视觉需要像太空绘本封面一样占据画面，而不是缩成角标。 */
-.space-home .hero-zone { height: 400rpx !important; }
+.space-home .hero-zone { height: 338rpx !important; }
 .space-home .space-baby { width: 730rpx !important; height: 410rpx !important; right: -42rpx !important; bottom: -12rpx !important; }
 .space-home .profile-pod { top: 40rpx !important; width: 334rpx !important; min-height: 262rpx !important; }
 .space-home .star-field { height: 112rpx !important; }
+.space-home .action-panel { margin-top: 2rpx !important; }
