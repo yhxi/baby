@@ -186,6 +186,8 @@ this.refresh()
     const days = getDaysSince(birthDate)
 
     const today = storage.getToday().sort((a, b) => b.time - a.time)
+    const savedPhotos = storage.getPhotos()
+    const demoPhotos = [1, 2, 3, 4].map(i => ({ id: 'home-demo-' + i, localPath: `/assets/demo-album/cartoon-${i}.jpg` }))
 
     // 上次喂养
     const feeds = storage.getAll().filter(r => (r.type === 'feed' || r.type === 'breast' || r.type === 'pump') && r.time).sort((a, b) => b.time - a.time)
@@ -217,7 +219,7 @@ this.refresh()
       todaySleepText: formatDuration(sleepMinutes),
       todayRecords: today.map(r => this.decorate(r)),
       todayTasks,
-      latestPhotos: storage.getPhotos().slice(0, 4),
+      latestPhotos: (savedPhotos.length ? savedPhotos : demoPhotos).slice(0, 4),
       ageMonths,
       latestWeight: latestGrowth.weight || '--',
       latestHeight: latestGrowth.height || '--',

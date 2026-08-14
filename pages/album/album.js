@@ -7,11 +7,16 @@ function day(ts) {
 }
 
 Page({
-  data: { photos: [], uploading: false, countText: '0 张珍藏', tabs: ['全部', '本月', '里程碑'], tab: '全部' },
+  data: { photos: [], displayPhotos: [], uploading: false, countText: '0 张珍藏', tabs: ['全部', '本月', '里程碑'], tab: '全部', demoPhotos: [
+    { id: 'demo-1', localPath: '/assets/demo-album/cartoon-1.jpg', dateText: '示例照片', demo: true },
+    { id: 'demo-2', localPath: '/assets/demo-album/cartoon-2.jpg', dateText: '示例照片', demo: true },
+    { id: 'demo-3', localPath: '/assets/demo-album/cartoon-3.jpg', dateText: '示例照片', demo: true },
+    { id: 'demo-4', localPath: '/assets/demo-album/cartoon-4.jpg', dateText: '示例照片', demo: true }
+  ] },
   onShow() { this.refresh(); this.pullCloud() },
   refresh() {
     const photos = storage.getPhotos().map(p => Object.assign({}, p, { dateText: day(p.createdAt) }))
-    this.setData({ photos, countText: `${photos.length} 张珍藏` })
+    this.setData({ photos, displayPhotos: photos.length ? photos : this.data.demoPhotos, countText: photos.length ? `${photos.length} 张珍藏` : '4 张示例珍藏' })
   },
   onTab(e) { this.setData({ tab: e.currentTarget.dataset.tab }) },
   choosePhotos() {
@@ -55,13 +60,14 @@ Page({
   },
   preview(e) {
     const photo = e.currentTarget.dataset.photo
-    if (photo.localPath) return wx.previewImage({ current: photo.localPath, urls: this.data.photos.filter(p => p.localPath).map(p => p.localPath) })
+    if (photo.localPath) return wx.previewImage({ current: photo.localPath, urls: this.data.displayPhotos.filter(p => p.localPath).map(p => p.localPath) })
     if (!photo.remoteId) return
     wx.showLoading({ title: '加载照片' })
     cloud.downloadPhoto(photo.remoteId).then(path => { storage.updatePhoto(photo.id, { localPath: path, status: 'synced' }); this.refresh(); wx.previewImage({ current: path, urls: [path] }) }).catch(() => wx.showToast({ title: '照片加载失败', icon: 'none' })).finally(() => wx.hideLoading())
   },
   deletePhoto(e) {
     const photo = e.currentTarget.dataset.photo
+    if (photo.demo) return wx.showToast({ title: '上传真实照片后，示例会自动隐藏', icon: 'none' })
     wx.showModal({ title: '移除照片', content: '仅移除本机相册显示，云端原片仍保留。', success: r => { if (r.confirm) { storage.removePhoto(photo.id); this.refresh() } } })
   }
 })
